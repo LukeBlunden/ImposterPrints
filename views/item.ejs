@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('meta'); %>
+    <title><%= title %> Movie Poster</title>
+  </head>
+  <body>
+    <div class="container" id="carousel-contain">
+      <%- include('navbar'); %>
+      <!-- Row with carousel and movie description -->
+      <div class="row justify-content-between gx-5 d-lg-block">
+        <div class="col-lg-8 float-start">
+          <!-- Carousel -->
+          <div id="itemCarousel" class="carousel slide pb-4">
+            <div class="carousel-inner">
+              <div class="carousel-item" id="img1">
+                <img
+                  src="./assets/<%= image1 %>"
+                  alt="<%= title %> alternative movie poster"
+                  class="d-block w-100"
+                />
+              </div>
+              <div class="carousel-item" id="img2">
+                <img
+                  src="./assets/<%= image2 %>"
+                  alt="<%= title %> alternative movie poster"
+                  class="d-block w-100"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="./assets/<%= image3 %>"
+                  alt="<%= title %> alternative movie poster"
+                  class="d-block w-100"
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#itemCarousel"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#itemCarousel"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <!-- Item info -->
+        <div class="col-lg-4 float-end">
+          <h1 id="product"><%= title %></h1>
+          <h4 class="mb-4">A <%= director %> Film</h4>
+          <h6>Dimensions:</h6>
+          <select name="size" id="size" class="form-select">
+            <option disabled selected>Select dimensions</option>
+            <% for (let i = 0; i < sizes.length; i++) {%>
+            <option value="<%= sizes[i].id %>">
+              <%= sizes[i].dimx %> x <%= sizes[i].dimy %> cm (€<%=
+              sizes[i].price %>)
+            </option>
+            <% } %>
+          </select>
+
+          <button
+            onclick="addToCart()"
+            type="button"
+            class="btn btn-outline-dark col-12 mb-4"
+          >
+            Add to cart
+          </button>
+          <div class="row justify-content-between mb-2">
+            <h6 class="col m-0">Genre</h6>
+            <div class="col text-end">
+              <a
+                class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                href="/genre?gid=<%= gid %>"
+                ><%= genre %></a
+              >
+            </div>
+          </div>
+          <h6>Description</h6>
+          <p>
+            Alternative movie posters created by the movie fan for the movie
+            fans. A tribute piece for those who brought my favorite films to
+            life.
+          </p>
+          <p>
+            The chic minimalist design will complement any wall in your house or
+            office, adding a distinctively modern sensibility. Printed on fine
+            archival paper with high-quality ink, it will last for years to
+            come.
+          </p>
+          <p>
+            This item is for PRINT only. Frame shown in the picture is not part
+            of the item.
+          </p>
+          <p>
+            Because the item is made to order, all sales are final. I do not
+            accept return items. But if you receive a damaged item or a wrong
+            print, please send me a message with the photos and I'll gladly send
+            you another one.
+          </p>
+        </div>
+        <div class="col-lg-8 float-start">
+          <h6>Reviews ★★☆☆:</h6>
+          <ul class="list-group list-group-flush">
+            <% for (let i = 0; i < reviews.length; i++) {%>
+            <li
+              class="list-group-item d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto">
+                <div class="fw-bold"><%= reviews[i].username %></div>
+                <%= reviews[i].text %>
+              </div>
+              <span class="badge bg-primary rounded-pill"
+                ><%= reviews[i].stars %></span
+              >
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="text/javascript">
+      // Randomly selects image 1 or 2 as the starting carousel image
+      const rand = Math.random() < 0.5;
+      const img1 = document.getElementById('img1');
+      const img2 = document.getElementById('img2');
+      rand ? img1.classList.add('active') : img2.classList.add('active');
+
+      function addToCart() {
+        let product = document.getElementById('product').innerHTML;
+        let order = new Map();
+        if (localStorage.getItem(product) != null) {
+          order = new Map(JSON.parse(localStorage.getItem(product)));
+        }
+        let item = parseInt(document.getElementById('size').value);
+        order.set(item, order.get(item) + 1 || 1);
+
+        localStorage.setItem(
+          product,
+          JSON.stringify(Array.from(order.entries()))
+        );
+
+        window.location.href = 'checkout';
+      }
+    </script>
+  </body>
+</html>

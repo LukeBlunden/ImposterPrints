@@ -1,0 +1,53 @@
+#nav_logo {
+  height: 60px;
+}
+
+.poster_panel_surround {
+  padding: 10px;
+}
+
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card h5 {
+  color: black;
+}
+
+.poster_panel img {
+  max-width: 100%;
+}
+
+/* Item */
+#carousel-contain.col-7 {
+  padding-right: 0px;
+}
+
+#carousel-contain.col-5 {
+  padding-left: 0px;
+}
+
+/* Checkout */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+input,
+select,
+textarea {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+button[type='submit'] {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button[type='submit']:hover {
+  background-color: #0062cc;
+}
