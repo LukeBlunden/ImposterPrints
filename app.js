@@ -1,10 +1,19 @@
 const express = require('express');
-const auth = require('./auth.js');
-
 const app = express();
+
+const auth = require('./auth.js');
+const mysql = require('mysql');
+const util = require('util');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
 app.use(express.static('pages'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(
+  session({ secret: 'a_secret_key', resave: true, saveUninitialized: true })
+);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');
@@ -14,8 +23,7 @@ app.listen(3000, () => {
 app.set('view engine', 'ejs');
 
 // Connect to database
-const mysql = require('mysql');
-const util = require('util');
+
 // Create a connection to the MySQL databse
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -157,8 +165,18 @@ app.get('/genre', (req, res) => {
   );
 });
 
+function signedIn(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    let err = new Error('Not logged in');
+    console.log(req.session.user);
+    next(err);
+  }
+}
+
 // Checkout Page
-app.get('/checkout', (req, res) => {
+app.get('/checkout', signedIn, (req, res) => {
   let sizes = [];
   connection.query('SELECT * FROM sizes', (err, rows, fields) => {
     if (err) {
@@ -177,22 +195,63 @@ app.get('/checkout', (req, res) => {
           price: rows[i].price,
         });
       }
-      res.render('checkout.ejs', { sizes: sizes });
+      res.render('checkout.ejs', {
+        sizes: sizes,
+        username: req.session.user.username,
+      });
     }
   });
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
 });
 
 // User login POST
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-
-  const authenticated = auth.authenticateUser(username, password);
-
-  if (authenticated) {
-    res.render('home');
+  if (!username || !password) {
+    res.render('login', { message: 'Please enter username and password' });
   } else {
-    res.render('failed');
+    if (auth.authenticateUser(username, password)) {
+      req.session.user = { username, password };
+      res.redirect('/home');
+    } else {
+      res.render('login', { message: 'Invalid credentials' });
+    }
   }
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    console.log('User logged out');
+  });
+  res.redirect('/home');
+});
+
+app.get('/signup', (req, res) => {
+  res.render('signup');
+});
+
+app.post('/signup', (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    res.render('signup', { message: 'Please enter username and password' });
+  } else {
+    if (auth.userExists(username)) {
+      res.render('signup', {
+        message: 'User already exists, login or use a different username',
+      });
+    }
+    auth.createUser(username, password);
+    req.session.user = { username, password };
+    res.redirect(303, '/home');
+  }
+});
+
+app.use('/checkout', (err, req, res, next) => {
+  console.log(err);
+  res.redirect('/login');
 });
 
 async function getQuery(query) {
