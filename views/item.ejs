@@ -64,8 +64,8 @@
         <!-- Item info -->
         <div class="col-lg-4 float-end">
           <h1 id="product"><%= title %></h1>
-          <h4 class="mb-4">A <%= director %> Film</h4>
-          <h6>Dimensions:</h6>
+          <h3 class="mb-4">A <%= director %> Film</h3>
+          <h5>Dimensions:</h5>
           <select name="size" id="size" class="form-select">
             <option disabled selected>Select dimensions</option>
             <% for (let i = 0; i < sizes.length; i++) {%>
@@ -84,7 +84,7 @@
             Add to cart
           </button>
           <div class="row justify-content-between mb-2">
-            <h6 class="col m-0">Genre</h6>
+            <h5 class="col m-0">Genre</h5>
             <div class="col text-end">
               <a
                 class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
@@ -93,7 +93,7 @@
               >
             </div>
           </div>
-          <h6>Description</h6>
+          <h5>Description</h5>
           <p>
             Alternative movie posters created by the movie fan for the movie
             fans. A tribute piece for those who brought my favorite films to
@@ -117,14 +117,16 @@
           </p>
         </div>
         <div class="col-lg-8 float-start">
-          <h6>Reviews ★★☆☆:</h6>
+          <h3 class="ms-2">Reviews ★★☆☆:</h3>
           <ul class="list-group list-group-flush">
             <% for (let i = 0; i < reviews.length; i++) {%>
             <li
               class="list-group-item d-flex justify-content-between align-items-start"
             >
-              <div class="ms-2 me-auto">
-                <div class="fw-bold"><%= reviews[i].username %></div>
+              <div class="me-auto mb-2">
+                <div class="fw-bold">
+                  <h5 class="mb-2"><%= reviews[i].username %></h5>
+                </div>
                 <%= reviews[i].text %>
               </div>
               <span class="badge bg-primary rounded-pill"

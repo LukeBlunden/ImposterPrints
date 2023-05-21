@@ -49,7 +49,7 @@ connection.connect((err) => {
 // Static files
 app.use(express.static('home'));
 
-app.get('/home', (req, res) => {
+app.get('/shop', (req, res) => {
   connection.query(
     'SELECT * FROM proddata JOIN genres ON proddata.gid = genres.genreid',
     async (err, rows, fields) => {
@@ -68,7 +68,7 @@ app.get('/home', (req, res) => {
             image1: rows[i].image1,
           });
         }
-        res.render('home', {
+        res.render('shop', {
           movies,
           username: getUsername(req),
         });
@@ -77,7 +77,7 @@ app.get('/home', (req, res) => {
   );
 });
 
-app.get('/shop', async (req, res) => {
+app.get('/item', async (req, res) => {
   // Gets poster dimensions and prices
   let sizes = [];
   try {
@@ -223,7 +223,7 @@ app.post('/login', (req, res) => {
   } else {
     if (auth.authenticateUser(username, password)) {
       req.session.user = { username, password };
-      res.redirect('/home');
+      res.redirect('/shop');
     } else {
       res.render('login', { message: 'Invalid credentials' });
     }
@@ -234,7 +234,7 @@ app.get('/logout', (req, res) => {
   req.session.destroy(() => {
     console.log('User logged out');
   });
-  res.redirect('/home');
+  res.redirect('/shop');
 });
 
 app.get('/signup', (req, res) => {
@@ -253,7 +253,7 @@ app.post('/signup', (req, res) => {
     }
     auth.createUser(username, password);
     req.session.user = { username, password };
-    res.redirect(303, '/home');
+    res.redirect(303, '/shop');
   }
 });
 

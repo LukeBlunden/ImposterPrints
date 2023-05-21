@@ -1,5 +1,45 @@
-#nav_logo {
+body {
+  font-family: 'Montserrat';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar {
+  font-family: 'Bebas Neue';
+}
+
+.navbar {
+  font-size: 150%;
+}
+
+#nav-logo {
   height: 60px;
+}
+
+#navbar-shop-title {
+  font-size: 180%;
+}
+
+#shop-title-emphasis {
+  color: #be320c;
+}
+
+.carousel-content {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  z-index: 20;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-content h1 {
+  margin-left: -100%;
+  color: black;
 }
 
 .poster_panel_surround {

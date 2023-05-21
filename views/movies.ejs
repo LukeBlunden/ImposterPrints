@@ -1,8 +1,8 @@
 <div class="row">
   <% for (let i = 1; i <= movies.size; i++) {%>
   <div class="col-md-4 col-6 col-xs-6 poster_panel_surround">
-    <div class="card text-center border-0">
-      <a href="/shop?rec=<%= i %>" class="text-decoration-none">
+    <div class="card text-center border-0 mb-4">
+      <a href="/item?rec=<%= i %>" class="text-decoration-none">
         <img
           src="/assets/<%= movies.get(i).image1 %>"
           alt="poster image"
