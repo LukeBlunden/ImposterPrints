@@ -12,8 +12,21 @@ h6,
   font-family: 'Bebas Neue';
 }
 
+a {
+  text-decoration: none;
+  color: #5d8cad;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .navbar {
   font-size: 150%;
+}
+
+.navbar a {
+  text-decoration: none;
 }
 
 #nav-logo {
@@ -21,10 +34,10 @@ h6,
 }
 
 #navbar-shop-title {
-  font-size: 180%;
+  font-size: 150%;
 }
 
-#shop-title-emphasis {
+.shop-title-emphasis {
   color: #be320c;
 }
 
@@ -37,8 +50,11 @@ h6,
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
-.carousel-content h1 {
+#landing-heading {
+  font-size: 10em;
+  opacity: 0.75;
   margin-left: -100%;
+  margin-bottom: -30%;
   color: black;
 }
 
