@@ -68,7 +68,10 @@ app.get('/home', (req, res) => {
             image1: rows[i].image1,
           });
         }
-        res.render('home', { movies });
+        res.render('home', {
+          movies,
+          username: getUsername(req),
+        });
       }
     }
   );
@@ -129,6 +132,7 @@ app.get('/shop', async (req, res) => {
         director: product[0].director,
         sizes,
         reviews,
+        username: getUsername(req),
       });
     }
   } catch (err) {
@@ -159,7 +163,11 @@ app.get('/genre', (req, res) => {
           });
         }
         console.log(movies);
-        res.render('genre', { movies, genre: rows[0].genre });
+        res.render('genre', {
+          movies,
+          genre: rows[0].genre,
+          username: getUsername(req),
+        });
       }
     }
   );
@@ -197,7 +205,7 @@ app.get('/checkout', signedIn, (req, res) => {
       }
       res.render('checkout.ejs', {
         sizes: sizes,
-        username: req.session.user.username,
+        username: getUsername(req),
       });
     }
   });
@@ -253,6 +261,10 @@ app.use('/checkout', (err, req, res, next) => {
   console.log(err);
   res.redirect('/login');
 });
+
+function getUsername(req) {
+  return req.session.user === undefined ? 'Guest' : req.session.user.username;
+}
 
 async function getQuery(query) {
   try {
