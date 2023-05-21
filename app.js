@@ -185,7 +185,7 @@ function signedIn(req, res, next) {
 }
 
 // Checkout Page
-app.get('/checkout', signedIn, (req, res) => {
+app.get('/checkout', signedIn, async (req, res) => {
   let sizes = [];
   connection.query('SELECT * FROM sizes', (err, rows, fields) => {
     if (err) {
@@ -204,12 +204,27 @@ app.get('/checkout', signedIn, (req, res) => {
           price: rows[i].price,
         });
       }
+
       res.render('checkout.ejs', {
         sizes: sizes,
         username: getUsername(req),
       });
     }
   });
+});
+
+app.post('/checkout', async (req, res) => {
+  const { name, email, address, city, county, country, payment } = req.body;
+  try {
+    const result = await query(
+      'INSERT INTO orders (name, email, address, city, county, country, payment) VALUES (?,?,?,?,?,?,?)',
+      [name, email, address, city, county, country, payment]
+    );
+    res.redirect('/shop');
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Error retrieving data');
+  }
 });
 
 app.get('/login', (req, res) => {

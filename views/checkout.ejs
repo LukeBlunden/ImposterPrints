@@ -7,35 +7,88 @@
   <body>
     <div class="container">
       <%- include('navbar'); %>
-      <h1>Checkout</h1>
-      <h2 id="cart_items"></h2>
-      <h2 id="total"></h2>
-      <form action="">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required />
+      <div class="row gx-5">
+        <div class="col-lg-8">
+          <h3 class="ps-3">Order summary</h3>
+          <ul class="list-group-flush list-group" id="orderSummary"></ul>
+          <p class="text-end mb-2 pe-3">Total</p>
+          <h3 id="total" class="text-end pe-3"></32>
+        </div>
+        <div class="col-lg-4">
+          <h3>Shipping details</h3>
+          <form method="POST" action="/checkout" onsubmit="localStorage.clear()">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value="<%= username %>"
+              autocomplete="name"
+              required
+            />
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required />
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required />
 
-        <label for="address">Address:</label>
-        <textarea
-          name="address"
-          id="address"
-          cols="30"
-          rows="10"
-          required
-        ></textarea>
+            <label for="address">Address:</label>
+            <textarea
+              name="address"
+              id="address"
+              rows="4"
+              required
+              autocomplete="street-address"
+            ></textarea>
 
-        <label for="payment">Payment Method:</label>
-        <select name="payment" id="payment">
-          <option value="credit-card">Credit Card</option>
-          <option value="paypal">PayPal</option>
-          <option value="stripe">Stripe</option>
-        </select>
+            <label for="city">City</label>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              autocomplete="address-level2"
+              required
+            />
 
-        <button type="submit">Place Order</button>
-        <a href="home">Back to shop</a>
-      </form>
+            <label for="county">County</label>
+            <input
+              type="text"
+              name="county"
+              id="county"
+              autocomplete="address-level1"
+              required
+            />
+
+            <label for="country">Country</label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              autocomplete="country"
+              required
+            />
+
+            <label for="payment">Payment Method:</label>
+            <select name="payment" id="payment">
+              <option value="credit-card">Credit Card</option>
+              <option value="paypal">PayPal</option>
+              <option value="stripe">Stripe</option>
+            </select>
+
+            <input
+              type="submit"
+              class="btn btn-outline-dark col-12 my-2"
+              value="Place Order"
+            />
+            <a
+              href="home"
+              class="btn btn-outline-dark col-12 my-2 text-decoration-none"
+              tabindex="-1"
+              role="button"
+              aria-disabled="true"
+              >Back to shop</a
+            >
+          </form>
+        </div>
+      </div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -54,29 +107,31 @@
     ></script>
 
     <script type="text/javascript">
-      var sizes = JSON.parse('<%- JSON.stringify(sizes) %>');
+      let sizes = JSON.parse('<%- JSON.stringify(sizes) %>');
 
       let total = 0;
       for (let i = 0; i < localStorage.length; i++) {
         let product = localStorage.key(i);
         let order = new Map(JSON.parse(localStorage.getItem(product)));
+
         order.forEach((quantity, size) => {
-          document.getElementById('cart_items').innerHTML +=
-            quantity +
-            ' x ' +
+          document.getElementById('orderSummary').innerHTML +=
+            '<li class="list-group-item"><div class="row pt-2"><div class="col-8"><h5>' +
             product +
-            ' ' +
+            '</h5><p>Dimensions: ' +
             sizes[size - 1].dimx +
             'x' +
             sizes[size - 1].dimy +
-            'cm (€' +
+            'cm</p></div><div class="col-4 text-end"><h5>€' +
             sizes[size - 1].price * quantity +
-            ')<br>';
+            '</h5><p>€' +
+            sizes[size - 1].price +
+            ' each</p></div></div></li>';
           total += sizes[size - 1].price * quantity;
         });
       }
       document.getElementById('total').innerHTML =
-        'Total: €' + total.toFixed(2);
+        '€' + total.toFixed(2);
     </script>
   </body>
 </html>
