@@ -60,21 +60,20 @@
       for (let i = 0; i < localStorage.length; i++) {
         let product = localStorage.key(i);
         let order = new Map(JSON.parse(localStorage.getItem(product)));
-        for (let j = 0; j < order.size; j++) {
+        order.forEach((quantity, size) => {
           document.getElementById('cart_items').innerHTML +=
-            order.get(j + 1) + ' x ' + product;
-          if (order.get(j + 1) > 0) {
-            document.getElementById('cart_items').innerHTML +=
-              ' ' +
-              sizes[j].dimx +
-              'x' +
-              sizes[j].dimy +
-              'cm (€' +
-              sizes[j].price * order.get(j + 1) +
-              ')<br>';
-            total += sizes[j].price * order.get(j + 1);
-          }
-        }
+            quantity +
+            ' x ' +
+            product +
+            ' ' +
+            sizes[size - 1].dimx +
+            'x' +
+            sizes[size - 1].dimy +
+            'cm (€' +
+            sizes[size - 1].price * quantity +
+            ')<br>';
+          total += sizes[size - 1].price * quantity;
+        });
       }
       document.getElementById('total').innerHTML =
         'Total: €' + total.toFixed(2);

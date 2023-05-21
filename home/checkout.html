@@ -22,7 +22,7 @@
         margin-bottom: 10px;
         width: 100%;
       }
-      button[type="submit"] {
+      button[type='submit'] {
         margin-top: 20px;
         background-color: #007bff;
         color: #fff;
@@ -31,7 +31,7 @@
         border-radius: 5px;
         cursor: pointer;
       }
-      button[type="submit"]:hover {
+      button[type='submit']:hover {
         background-color: #0062cc;
       }
     </style>
@@ -72,16 +72,17 @@
       let total = 0;
       for (i = 0; i < localStorage.length; i++) {
         let product = localStorage.key(i);
-        let order = JSON.parse(localStorage.getItem(product));
-        let cost = order.quantity * content.price;
+        let order = new Map(JSON.parse(localStorage.getItem(product)));
+        console.log(order);
+        // let cost = order.quantity * content.price;
         // Check that quantity isn't 0
-        if (content.quantity > 0) {
-          document.getElementById("cart_items").innerHTML +=
-            product + " x " + content.quantity + " = €" + cost + "<br>";
-          total += cost;
-        }
+        // if (content.quantity > 0) {
+        //   document.getElementById('cart_items').innerHTML +=
+        //     product + ' x ' + content.quantity + ' = €' + cost + '<br>';
+        //   total += cost;
+        // }
       }
-      document.getElementById("total").innerHTML = "Total: €" + total;
+      document.getElementById('total').innerHTML = 'Total: €' + total;
     </script>
   </body>
 </html>

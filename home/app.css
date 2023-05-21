@@ -1,5 +1,5 @@
 body {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1,
@@ -9,7 +9,7 @@ h4,
 h5,
 h6,
 .navbar {
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 a {
@@ -81,6 +81,15 @@ a:hover {
 
 #carousel-contain.col-5 {
   padding-left: 0px;
+}
+
+.reviewed {
+  background-color: #e0ebec;
+}
+
+.review-stars {
+  color: #be320c;
+  font-size: 1.4em;
 }
 
 /* Checkout */

@@ -69,7 +69,7 @@
           <select name="size" id="size" class="form-select">
             <option disabled selected>Select dimensions</option>
             <% for (let i = 0; i < sizes.length; i++) {%>
-            <option value="<%= sizes[i].id %>">
+            <option value="<%= sizes[i].sizeid %>">
               <%= sizes[i].dimx %> x <%= sizes[i].dimy %> cm (€<%=
               sizes[i].price %>)
             </option>
@@ -117,20 +117,23 @@
           </p>
         </div>
         <div class="col-lg-8 float-start">
-          <h3 class="ms-2">Reviews ★★☆☆:</h3>
+          <h3 class="ms-2">Reviews</h3>
           <ul class="list-group list-group-flush">
             <% for (let i = 0; i < reviews.length; i++) {%>
-            <li
-              class="list-group-item d-flex justify-content-between align-items-start"
-            >
-              <div class="me-auto mb-2">
-                <div class="fw-bold">
-                  <h5 class="mb-2"><%= reviews[i].username %></h5>
-                </div>
-                <%= reviews[i].text %>
+            <li class="list-group-item d-flex <%= reviews[i].prodid === prodid ? "reviewed" : "" %>">
+              <div class="me-auto">
+                <h5 class="me-2 d-inline-block"><%= reviews[i].username %></h5>
+                <small>
+                  <%= reviews[i].prodid === prodid ? "reviewed this item" :
+                  "reviewed another item" %>
+                </small>
+                <br />
+                <p class="mb-2"><%= reviews[i].text %></p>
+                <small><%= reviews[i].date.toLocaleDateString("en-GB") %></small>
               </div>
-              <span class="badge bg-primary rounded-pill"
-                ><%= reviews[i].stars %></span
+              <span class="review-stars"
+                ><%= "★".repeat(reviews[i].stars) %><%= "☆".repeat(5 -
+                reviews[i].stars) %></span
               >
             </li>
             <% } %>

@@ -97,11 +97,11 @@ app.get('/item', async (req, res) => {
   let reviews = [];
   try {
     const reviewRowsID = await query(
-      'SELECT username, stars, date, text FROM reviews WHERE prodid = ? ORDER BY date DESC',
+      'SELECT prodid, username, stars, date, text FROM reviews WHERE prodid = ? ORDER BY date DESC',
       [ID]
     );
     const otherReviews = await query(
-      'SELECT username, stars, date, text FROM reviews WHERE prodid != ? ORDER BY date DESC',
+      'SELECT prodid, username, stars, date, text FROM reviews WHERE prodid != ? ORDER BY date DESC',
       [ID]
     );
     reviews = reviewRowsID.concat(otherReviews).slice(0, 11);
@@ -123,6 +123,7 @@ app.get('/item', async (req, res) => {
       res.status(404).send('No products found');
     } else {
       res.render('item.ejs', {
+        prodid: product[0].prodid,
         title: product[0].title,
         image1: product[0].image1,
         image2: product[0].image2,
