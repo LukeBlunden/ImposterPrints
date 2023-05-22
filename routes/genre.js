@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
         movies,
         genre: products[0].genre,
         username: getUsername(req),
-        genres: await getGenres(),
+        genres: await getGenres(res),
       });
     }
   } catch (err) {

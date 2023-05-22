@@ -19,9 +19,9 @@ router.get('/', signedIn, async (req, res) => {
   try {
     const products = await query('SELECT prodid, title, image1 FROM proddata');
     res.render('checkout.ejs', {
-      sizes: await getSizes(),
+      sizes: await getSizes(res),
       username: getUsername(req),
-      genres: await getGenres(),
+      genres: await getGenres(res),
       products,
     });
   } catch (err) {

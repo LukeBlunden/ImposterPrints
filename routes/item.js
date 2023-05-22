@@ -51,10 +51,10 @@ router.get('/', async (req, res) => {
         genre: product[0].genre,
         gid: product[0].gid,
         director: product[0].director,
-        sizes: await getSizes(),
+        sizes: await getSizes(res),
         reviews,
         username: getUsername(req),
-        genres: await getGenres(),
+        genres: await getGenres(res),
       });
     }
   } catch (err) {

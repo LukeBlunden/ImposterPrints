@@ -30,9 +30,9 @@ router.post('/', async (req, res) => {
             'SELECT prodid, title, image1 FROM proddata'
           );
           res.render('checkout.ejs', {
-            sizes: await getSizes(),
+            sizes: await getSizes(res),
             username: username,
-            genres: await getGenres(),
+            genres: await getGenres(res),
             products,
           });
         } else {
