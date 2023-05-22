@@ -7,10 +7,6 @@
   <body>
     <div class="container">
       <%- include('navbar'); %>
-      <div class="row">
-        <h1>Welcome to Big Posters <%= username %></h1>
-        <h3><%= JSON.parse(genres)[0].genre %></h3>
-      </div>
       <h3>Featured products</h3>
       <div class="row">
         <% for (let i = 1; i < 5; i++) {%>

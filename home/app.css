@@ -8,7 +8,8 @@ h3,
 h4,
 h5,
 h6,
-.navbar {
+.navbar,
+.shop-title {
   font-family: 'Bebas Neue', sans-serif;
 }
 
@@ -21,7 +22,7 @@ a:hover {
   text-decoration: underline;
 }
 
-.navbar {
+.nav-item {
   font-size: 150%;
 }
 
@@ -29,12 +30,13 @@ a:hover {
   text-decoration: none;
 }
 
-#nav-logo {
+.nav-logo {
   height: 60px;
 }
 
-#navbar-shop-title {
-  font-size: 150%;
+.shop-title {
+  font-size: 250%;
+  color: black;
 }
 
 .shop-title-emphasis {

@@ -20,7 +20,7 @@ router.get('/', signedIn, async (req, res) => {
     res.render('checkout.ejs', {
       sizes: await getSizes(),
       username: getUsername(req),
-      genres: JSON.stringify(await getGenres()),
+      genres: await getGenres(),
     });
   } catch {
     console.error('Error retrieving product options');

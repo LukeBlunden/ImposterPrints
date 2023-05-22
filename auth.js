@@ -12,11 +12,7 @@ function authenticateUser(username, password) {
 }
 
 function userExists(username) {
-  users.filter((user) => {
-    if (user.username === username) {
-      return true;
-    }
-  });
+  return users.find((user) => user.username === username);
 }
 
 module.exports = { createUser, authenticateUser, userExists };

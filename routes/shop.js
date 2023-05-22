@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
       res.render('shop', {
         movies,
         username: getUsername(req),
-        genres: JSON.stringify(await getGenres()),
+        genres: await getGenres(),
       });
     }
   } catch {

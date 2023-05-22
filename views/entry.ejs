@@ -2,16 +2,29 @@
 <html lang="en">
   <head>
     <%- include('meta'); %>
-    <title>Sign up Page</title>
+    <title><%= task %></title>
   </head>
   <body>
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <h1 class="text-center">Sign up Page</h1>
-          <form method="POST" action="/signup">
+      <div class="row justify-content-center mt-5">
+        <div class="col-xl-4 col-lg-6 col-md-8 col-10 text-center">
+          <a href="/shop" class="shop-title text-decoration-none">
+            <img
+              class="nav-logo"
+              src="assets/logo.png"
+              alt="logo"
+              class="me-4"
+            />
+            Im<span class="shop-title-emphasis">poster</span> Prints
+          </a>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-4">
+        <div class="col-xl-4 col-lg-6 col-md-8 col-10">
+          <h1 class="text-center"><%= task %></h1>
+          <form method="POST" action="/<%= route %>">
             <div class="form-group">
-              <label for="username">Username</label>
+              <label for="username"><h5>Username</h5></label>
               <input
                 type="text"
                 class="form-control"
@@ -22,7 +35,7 @@
               />
             </div>
             <div class="form-group">
-              <label for="password">Password</label>
+              <label for="password" class="mt-4"><h5>Password</h5></label>
               <input
                 type="password"
                 class="form-control"
@@ -32,12 +45,16 @@
                 required
               />
             </div>
-            <button type="submit" class="btn btn-primary btn-block">
-              Sign up
-            </button>
+            <input
+              type="submit"
+              class="btn btn-outline-dark col-12 my-4"
+              value="<%= task %>"
+            />
           </form>
           <% if (locals.message) { %>
-          <h6><%= message %></h6>
+          <div class="alert alert-warning text-center" role="alert">
+            <%= message %>
+          </div>
           <% } %>
         </div>
       </div>
