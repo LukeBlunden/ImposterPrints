@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
 // Middleware redirect if user not logged in
 router.use('/', (err, req, res, next) => {
   console.log(err);
-  res.redirect('login');
+  res.redirect('login?checkout=true');
 });
 
 module.exports = router;

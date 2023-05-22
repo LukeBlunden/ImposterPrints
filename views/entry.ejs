@@ -22,7 +22,11 @@
       <div class="row justify-content-center mt-4">
         <div class="col-xl-4 col-lg-6 col-md-8 col-10">
           <h1 class="text-center"><%= task %></h1>
-          <form method="POST" action="/<%= route %>">
+          <form
+            method="POST"
+            action="/<%= route %><% if (locals.checkoutFwd) { %>?checkout=<%= checkoutFwd %>
+            <% } %>"
+          >
             <div class="form-group">
               <label for="username"><h5>Username</h5></label>
               <input
