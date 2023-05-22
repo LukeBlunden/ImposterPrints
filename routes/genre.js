@@ -13,7 +13,10 @@ router.get('/', async (req, res) => {
     );
     if (products.length === 0) {
       console.error('No movies with that genre ID found');
-      res.status(404).send('No movies with that genre ID found');
+      res.render('error', {
+        status: 404,
+        err: 'No movies with that genre ID found',
+      });
     } else {
       console.log('Movies retrieved from database');
       let movies = new Map();
@@ -31,9 +34,13 @@ router.get('/', async (req, res) => {
         genres: await getGenres(),
       });
     }
-  } catch {
-    console.error('Error retrieving movies');
-    res.status(500).send('Error retrieving data');
+  } catch (err) {
+    console.error(err);
+    console.log('Error retrieving movies');
+    res.render('error', {
+      status: 500,
+      err,
+    });
   }
 });
 

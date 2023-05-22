@@ -10,8 +10,11 @@ router.get('/', async (req, res) => {
       'SELECT * FROM proddata JOIN genres ON proddata.gid = genres.genreid'
     );
     if (products.length === 0) {
-      console.error('No product options found');
-      res.status(404).send('No product options found');
+      console.error('No products found');
+      res.render('error', {
+        status: 404,
+        err: 'No products found',
+      });
     } else {
       console.log('Product options retrieved from database');
       let movies = new Map();
@@ -27,9 +30,12 @@ router.get('/', async (req, res) => {
         genres: await getGenres(),
       });
     }
-  } catch {
-    console.error('Error retrieving product options');
-    res.status(500).send('Error retrieving data');
+  } catch (err) {
+    console.error('Error retrieving products');
+    res.render('error', {
+      status: 500,
+      err,
+    });
   }
 });
 

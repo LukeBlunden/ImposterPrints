@@ -24,9 +24,12 @@ router.get('/', signedIn, async (req, res) => {
       genres: await getGenres(),
       products,
     });
-  } catch {
+  } catch (err) {
     console.error('Error retrieving product options');
-    res.status(500).send('Error retrieving data');
+    res.render('error', {
+      status: 500,
+      err,
+    });
   }
 });
 
@@ -43,14 +46,17 @@ router.post('/', async (req, res) => {
     }
     res.redirect('../shop');
   } catch (err) {
-    console.log(err);
-    res.status(500).send('Error retrieving data');
+    console.error('Error posting checkout information');
+    res.render('error', {
+      status: 500,
+      err,
+    });
   }
 });
 
 // Middleware redirect if user not logged in
 router.use('/', (err, req, res, next) => {
-  console.log(err);
+  console.error(err);
   res.redirect('login?checkout=true');
 });
 

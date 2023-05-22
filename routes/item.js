@@ -23,8 +23,11 @@ router.get('/', async (req, res) => {
       console.log('No reviews found in database');
     }
   } catch (err) {
-    console.log(err);
-    res.status(500).send('Error retrieving data');
+    console.error(err);
+    res.render('error', {
+      status: 500,
+      err,
+    });
   }
 
   try {
@@ -34,7 +37,10 @@ router.get('/', async (req, res) => {
     );
     if (product.length === 0) {
       console.error('No rows selected for ID $[ID]');
-      res.status(404).send('No products found');
+      res.render('error', {
+        status: 404,
+        err: 'No products found for id',
+      });
     } else {
       res.render('item.ejs', {
         prodid: product[0].prodid,
@@ -52,8 +58,11 @@ router.get('/', async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
-    res.status(500).send('Error retrieving data');
+    console.error(err);
+    res.render('error', {
+      status: 500,
+      err,
+    });
   }
 });
 
@@ -71,8 +80,11 @@ router.post('/', async (req, res) => {
     }
     res.redirect('/item?id=' + id);
   } catch (err) {
-    console.log(err);
-    res.status(500).send('Error retrieving data');
+    console.error(err);
+    res.render('error', {
+      status: 500,
+      err,
+    });
   }
 });
 
