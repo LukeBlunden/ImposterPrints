@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const query = require('../db');
 const getUsername = require('../getUsername.js');
+const getGenres = require('../getGenres.js');
 
 // Genre route
 router.get('/', async (req, res) => {
@@ -27,6 +28,7 @@ router.get('/', async (req, res) => {
         movies,
         genre: products[0].genre,
         username: getUsername(req),
+        genres: JSON.stringify(await getGenres()),
       });
     }
   } catch {

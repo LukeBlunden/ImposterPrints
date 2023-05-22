@@ -9,6 +9,7 @@
       <%- include('navbar'); %>
       <div class="row">
         <h1>Welcome to Big Posters <%= username %></h1>
+        <h3><%= JSON.parse(genres)[0].genre %></h3>
       </div>
       <h3>Featured products</h3>
       <div class="row">
@@ -30,7 +31,24 @@
         <% } %>
       </div>
       <hr class="mt-0 mb-4" />
-      <%- include('movies'); %>
+      <div class="row">
+        <% for (let i = 5; i <= movies.size; i++) {%>
+        <div class="col-md-4 col-6 col-xs-6 poster_panel_surround">
+          <div class="card text-center border-0 mb-4">
+            <a href="/item?rec=<%= i %>" class="text-decoration-none">
+              <img
+                src="/assets/<%= movies.get(i).image1 %>"
+                alt="poster image"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= movies.get(i).title %></h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <% } %>
+      </div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

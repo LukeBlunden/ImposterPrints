@@ -18,10 +18,10 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" href="shop" id="nav_home">Shop</a>
+          <a class="nav-link active" href="/shop" id="nav_home">Shop</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pricing">Pricing</a>
+          <a class="nav-link" href="/pricing">Pricing</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -34,12 +34,27 @@
             Shop by genre
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/genre?gid=1">Sci-fi</a></li>
+            <% for (let i = 0; i < JSON.parse(genres).length; i++) { %>
+            <li>
+              <a
+                class="dropdown-item"
+                href="/genre?gid=<%= JSON.parse(genres)[i].genreid %>"
+                ><%= JSON.parse(genres)[i].genre %></a
+              >
+            </li>
+            <% } %>
+            <!-- <li>
+              <a class="dropdown-item" href="/genre?gid=1">Sci-fi</a>
+            </li>
             <li>
               <a class="dropdown-item" href="/genre?gid=2">Martial Arts</a>
             </li>
-            <li><a class="dropdown-item" href="/genre?gid=3">Action</a></li>
-            <li><a class="dropdown-item" href="/genre?gid=4">Thriller</a></li>
+            <li>
+              <a class="dropdown-item" href="/genre?gid=3">Action</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/genre?gid=4">Thriller</a>
+            </li> -->
           </ul>
         </li>
       </ul>

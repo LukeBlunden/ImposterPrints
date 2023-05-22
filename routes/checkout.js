@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const query = require('../db');
 const getUsername = require('../getUsername.js');
+const getGenres = require('../getGenres.js');
 
 // Middleware checks for user sign in
 function signedIn(req, res, next) {
@@ -33,6 +34,7 @@ router.get('/', signedIn, async (req, res) => {
       res.render('checkout.ejs', {
         sizes: sizes,
         username: getUsername(req),
+        genres: JSON.stringify(await getGenres()),
       });
     }
   } catch {
