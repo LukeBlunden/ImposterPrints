@@ -17,10 +17,12 @@ function signedIn(req, res, next) {
 // Checkout get
 router.get('/', signedIn, async (req, res) => {
   try {
+    const products = await query('SELECT prodid, title, image1 FROM proddata');
     res.render('checkout.ejs', {
       sizes: await getSizes(),
       username: getUsername(req),
       genres: await getGenres(),
+      products,
     });
   } catch {
     console.error('Error retrieving product options');

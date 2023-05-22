@@ -70,14 +70,14 @@
             <option disabled selected>Select dimensions</option>
             <% for (let i = 0; i < sizes.length; i++) {%>
             <option value="<%= sizes[i].sizeid %>">
-              <%= sizes[i].dimx %> x <%= sizes[i].dimy %> cm (€<%=
-              sizes[i].price %>)
+              <%= sizes[i].dimx %> x <%= sizes[i].dimy %> cm (€<%= prodid > 4 ?
+              sizes[i].price : (sizes[i].price * 2.5).toFixed(2)%>)
             </option>
             <% } %>
           </select>
 
           <button
-            onclick="addToCart()"
+            onclick="addToCart('<%- prodid %>')"
             type="button"
             class="btn btn-outline-dark col-12 mb-4"
           >
@@ -211,8 +211,8 @@
       const img2 = document.getElementById('img2');
       rand ? img1.classList.add('active') : img2.classList.add('active');
 
-      function addToCart() {
-        let product = document.getElementById('product').innerHTML;
+      function addToCart(prodid) {
+        // let product = document.getElementById('product').innerHTML;
         let order = new Map();
         if (localStorage.getItem(product) != null) {
           order = new Map(JSON.parse(localStorage.getItem(product)));
@@ -221,7 +221,7 @@
         order.set(item, order.get(item) + 1 || 1);
 
         localStorage.setItem(
-          product,
+          prodid,
           JSON.stringify(Array.from(order.entries()))
         );
 

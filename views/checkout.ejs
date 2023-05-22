@@ -108,26 +108,32 @@
 
     <script type="text/javascript">
       let sizes = JSON.parse('<%- JSON.stringify(sizes) %>');
+      let products = JSON.parse('<%- JSON.stringify(products) %>');
+      console.log(products);
+      console.log(products.find((product) => product.prodid === 1).image1);
 
       let total = 0;
       for (let i = 0; i < localStorage.length; i++) {
-        let product = localStorage.key(i);
-        let order = new Map(JSON.parse(localStorage.getItem(product)));
+        let prodid = parseInt(localStorage.key(i));
+        let order = new Map(JSON.parse(localStorage.getItem(prodid)));
 
         order.forEach((quantity, size) => {
+          let itemTotal = prodid > 4 ? sizes[size - 1].price * quantity : (sizes[size - 1].price * quantity) * 2.5
           document.getElementById('orderSummary').innerHTML +=
-            '<li class="list-group-item"><div class="row pt-2"><div class="col-8"><h5>' +
-            product +
+            '<li class="list-group-item"><div class="row py-2"><div class="col-3"><img src="./assets/' + 
+            products.find((product) => product.prodid === prodid).image1 + 
+            '" alt="movie thumbnail" class="img-thumbnail border-0"></div><div class="col-6"><h5>' +
+            products.find((product) => product.prodid === prodid).title +
             '</h5><p>Dimensions: ' +
             sizes[size - 1].dimx +
             'x' +
             sizes[size - 1].dimy +
-            'cm</p></div><div class="col-4 text-end"><h5>€' +
-            sizes[size - 1].price * quantity +
+            'cm</p></div><div class="col-3 text-end"><h5>€' +
+            itemTotal.toFixed(2) +
             '</h5><p>€' +
             sizes[size - 1].price +
             ' each</p></div></div></li>';
-          total += sizes[size - 1].price * quantity;
+          total += itemTotal;
         });
       }
       document.getElementById('total').innerHTML =
