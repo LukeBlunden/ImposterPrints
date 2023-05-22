@@ -34,12 +34,12 @@
             Shop by genre
           </a>
           <ul class="dropdown-menu">
-            <% for (let i = 0; i < JSON.parse(genres).length; i++) { %>
+            <% for (let i = 0; i < genres.length; i++) { %>
             <li>
               <a
                 class="dropdown-item"
-                href="/genre?gid=<%= JSON.parse(genres)[i].genreid %>"
-                ><%= JSON.parse(genres)[i].genre %></a
+                href="/genre?gid=<%= genres[i].genreid %>"
+                ><%= genres[i].genre %></a
               >
             </li>
             <% } %>

@@ -2,23 +2,10 @@ const router = require('express').Router();
 const query = require('../db');
 const getUsername = require('../getUsername.js');
 const getGenres = require('../getGenres.js');
+const getSizes = require('../getSizes.js');
 
 // Item route
 router.get('/', async (req, res) => {
-  // Gets poster dimensions and prices
-  let sizes = [];
-  try {
-    sizes = await query('SELECT * FROM sizes');
-    console.log('Sizes retrived from database');
-    if (sizes.length === 0) {
-      console.error('No poster sizes found in database');
-      res.status(404).send('No poster sizes found in database');
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Error retrieving data');
-  }
-
   const ID = req.query.rec;
 
   let reviews = [];
@@ -58,10 +45,10 @@ router.get('/', async (req, res) => {
         genre: product[0].genre,
         gid: product[0].gid,
         director: product[0].director,
-        sizes,
+        sizes: await getSizes(),
         reviews,
         username: getUsername(req),
-        genres: JSON.stringify(await getGenres()),
+        genres: await getGenres(),
       });
     }
   } catch (err) {

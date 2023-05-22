@@ -10,8 +10,8 @@ async function getGenres() {
       console.log('Genres retrieved from database');
       return genres;
     }
-  } catch {
-    console.error('Error retrieving product options');
+  } catch (err) {
+    console.error(err);
     res.status(500).send('Error retrieving data');
   }
 }

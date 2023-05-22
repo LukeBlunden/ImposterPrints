@@ -2,6 +2,7 @@ const router = require('express').Router();
 const query = require('../db');
 const getUsername = require('../getUsername.js');
 const getGenres = require('../getGenres.js');
+const getSizes = require('../getSizes.js');
 
 // Middleware checks for user sign in
 function signedIn(req, res, next) {
@@ -15,28 +16,12 @@ function signedIn(req, res, next) {
 
 // Checkout get
 router.get('/', signedIn, async (req, res) => {
-  let sizes = [];
   try {
-    const rows = await query('SELECT * FROM sizes');
-    if (rows.length === 0) {
-      console.error('No product options found');
-      res.status(404).send('No product options found');
-    } else {
-      console.log('Product options retrieved from database');
-      for (let i = 0; i < rows.length; i++) {
-        sizes.push({
-          id: rows[i].sizeid,
-          dimx: rows[i].dimx,
-          dimy: rows[i].dimy,
-          price: rows[i].price,
-        });
-      }
-      res.render('checkout.ejs', {
-        sizes: sizes,
-        username: getUsername(req),
-        genres: JSON.stringify(await getGenres()),
-      });
-    }
+    res.render('checkout.ejs', {
+      sizes: await getSizes(),
+      username: getUsername(req),
+      genres: JSON.stringify(await getGenres()),
+    });
   } catch {
     console.error('Error retrieving product options');
     res.status(500).send('Error retrieving data');
