@@ -10,6 +10,26 @@
       <div class="row">
         <h1>Welcome to Big Posters <%= username %></h1>
       </div>
+      <h3>Featured products</h3>
+      <div class="row">
+        <% for (let i = 1; i < 5; i++) {%>
+        <div class="col-md-3 col-6 poster_panel_surround">
+          <div class="card text-center border-0 mb-4">
+            <a href="/item?rec=<%= i %>" class="text-decoration-none">
+              <img
+                src="/assets/<%= movies.get(i).image1 %>"
+                alt="poster image"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= movies.get(i).title %></h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <hr class="mt-0 mb-4" />
       <%- include('movies'); %>
     </div>
     <script
