@@ -65,7 +65,7 @@
         <div class="col-lg-4 float-end">
           <h1 id="product"><%= title %></h1>
           <h3 class="mb-4">A <%= director %> Film</h3>
-          <h5>Dimensions:</h5>
+          <h5>Dimensions</h5>
           <select name="size" id="size" class="form-select">
             <option disabled selected>Select dimensions</option>
             <% for (let i = 0; i < sizes.length; i++) {%>
@@ -115,13 +115,56 @@
             print, please send me a message with the photos and I'll gladly send
             you another one.
           </p>
-          <h1>Hi</h1>
+          <h3 class="mt-4">Review this item</h3>
+          <form action="/item?id=<%= prodid %>" method="POST" id="review-form">
+            <label for="review-name"><h5>Name</h5></label>
+            <input
+              type="text"
+              name="name"
+              id="review-name"
+              value="<%= username %>"
+              autocomplete="name"
+              class="mb-3"
+              required
+            />
+
+            <label for="review-rating"><h5>Stars</h5></label>
+            <input
+              type="range"
+              name="reviewRating"
+              id="review-rating"
+              list="tickmarks"
+              min="1"
+              max="5"
+              class="mb-1"
+            />
+            <datalist id="tickmarks" class="mb-2">
+              <option value="1" label="1"></option>
+              <option value="2" label="2"></option>
+              <option value="3" label="3"></option>
+              <option value="4" label="4"></option>
+              <option value="5" label="5"></option>
+            </datalist>
+
+            <label for="review-text"><h5>Review</h5></label>
+            <textarea name="text" id="review-text" rows="4"></textarea>
+
+            <input
+              type="submit"
+              value="Submit review"
+              id="btnsubmit"
+              class="btn btn-outline-dark col-12 my-2"
+            />
+            <!-- <div id="review-success" role="alert"></div> -->
+          </form>
         </div>
         <div class="col-lg-8 float-start">
           <h3 class="ms-2">Reviews</h3>
           <ul class="list-group list-group-flush">
             <% for (let i = 0; i < reviews.length; i++) {%>
-            <li class="list-group-item d-flex <%= reviews[i].prodid === prodid ? "reviewed" : "" %>">
+            <li
+              class="list-group-item d-flex <%= reviews[i].prodid === prodid ? 'reviewed' : '' %>"
+            >
               <div class="me-auto">
                 <h5 class="me-2 d-inline-block"><%= reviews[i].username %></h5>
                 <small>
@@ -130,12 +173,14 @@
                 </small>
                 <br />
                 <p class="mb-2"><%= reviews[i].text %></p>
-                <small><%= reviews[i].date.toLocaleDateString("en-GB") %></small>
+                <small
+                  ><%= reviews[i].date.toLocaleDateString("en-GB") %></small
+                >
               </div>
-              <span class="review-stars"
-                ><%= "★".repeat(reviews[i].stars) %><%= "☆".repeat(5 -
-                reviews[i].stars) %></span
-              >
+              <span class="review-stars">
+                <%= "★".repeat(reviews[i].stars) %><%= "☆".repeat(5 -
+                reviews[i].stars) %>
+              </span>
             </li>
             <% } %>
           </ul>
@@ -182,6 +227,15 @@
 
         window.location.href = 'checkout';
       }
+
+      // function submitForm() {
+      //   let form = document.getElementById('review-form');
+      //   form.submit();
+      //   form.reset();
+      //   let reviewSuccess = document.getElementById('review-success');
+      //   reviewSuccess.innerHTML =
+      //     '<div class="alert alert-success" >Review submitted, thanks!</div>';
+      // }
     </script>
   </body>
 </html>

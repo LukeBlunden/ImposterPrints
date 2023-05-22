@@ -94,6 +94,11 @@ a:hover {
   font-size: 1.4em;
 }
 
+datalist {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Checkout */
 label {
   display: block;

@@ -12,7 +12,7 @@
         <% for (let i = 1; i < 5; i++) {%>
         <div class="col-md-3 col-6 poster_panel_surround">
           <div class="card text-center border-0 mb-4">
-            <a href="/item?rec=<%= i %>" class="text-decoration-none">
+            <a href="/item?id=<%= i %>" class="text-decoration-none">
               <img
                 src="/assets/<%= movies.get(i).image1 %>"
                 alt="poster image"
@@ -31,7 +31,7 @@
         <% for (let i = 5; i <= movies.size; i++) {%>
         <div class="col-md-4 col-6 col-xs-6 poster_panel_surround">
           <div class="card text-center border-0 mb-4">
-            <a href="/item?rec=<%= i %>" class="text-decoration-none">
+            <a href="/item?id=<%= i %>" class="text-decoration-none">
               <img
                 src="/assets/<%= movies.get(i).image1 %>"
                 alt="poster image"

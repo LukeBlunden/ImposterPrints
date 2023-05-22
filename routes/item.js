@@ -6,17 +6,17 @@ const getSizes = require('../getSizes.js');
 
 // Item route
 router.get('/', async (req, res) => {
-  const ID = req.query.rec;
+  const id = req.query.id;
 
   let reviews = [];
   try {
     const reviewRowsID = await query(
       'SELECT prodid, username, stars, date, text FROM reviews WHERE prodid = ? ORDER BY date DESC',
-      [ID]
+      [id]
     );
     const otherReviews = await query(
       'SELECT prodid, username, stars, date, text FROM reviews WHERE prodid != ? ORDER BY date DESC',
-      [ID]
+      [id]
     );
     reviews = reviewRowsID.concat(otherReviews).slice(0, 11);
     if (reviews.length === 0) {
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
   try {
     const product = await query(
       'SELECT * FROM proddata JOIN genres ON proddata.gid = genres.genreid WHERE proddata.prodid = ?',
-      [ID]
+      [id]
     );
     if (product.length === 0) {
       console.error('No rows selected for ID $[ID]');
@@ -51,6 +51,25 @@ router.get('/', async (req, res) => {
         genres: await getGenres(),
       });
     }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Error retrieving data');
+  }
+});
+
+router.post('/', async (req, res) => {
+  const id = req.query.id;
+  const { name, reviewRating, text } = req.body;
+  console.log(id + ' ' + name + ' ' + reviewRating + ' ' + text);
+  try {
+    const result = await query(
+      'INSERT INTO reviews (prodid, username, stars, date, text) VALUES (?,?,?,?,?)',
+      [id, name, reviewRating, new Date(), text]
+    );
+    if (result.affectedRows > 0) {
+      console.log('Insert successful');
+    }
+    res.redirect('/item?id=' + id);
   } catch (err) {
     console.log(err);
     res.status(500).send('Error retrieving data');
