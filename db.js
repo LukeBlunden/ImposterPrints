@@ -19,7 +19,8 @@ connection.connect((err) => {
   }
 });
 
-// Binds connection context to connection.query method - allows us to await asynchronous queries
+// https://nodejs.org/dist/latest-v8.x/docs/api/util.html
+// Allows connection.query to return promises which allows us to await asynchronous calls to the database
 const query = util.promisify(connection.query).bind(connection);
 
 module.exports = query;

@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     );
     // Gets product and genre info from proddata and genres for the rest of the movies
     const movies = await query(
-      'SELECT prodid, title, image1 FROM proddata JOIN genres ON proddata.gid = genres.genreid WHERE prodid > 4'
+      'SELECT prodid, title, image1 FROM proddata JOIN genres ON proddata.gid = genres.genreid WHERE prodid > 4 ORDER BY title ASC'
     );
     // If no movies are found logs and renders an error
     if (movies.length === 0) {

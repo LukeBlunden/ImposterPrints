@@ -64,6 +64,8 @@
           </form>
           <!-- Displays an error message from backend if one is sent -->
           <% if (locals.message) { %>
+          <!-- https://getbootstrap.com/docs/5.3/components/alerts/ -->
+          <!-- Bootstrap alert -->
           <div class="alert alert-warning text-center" role="alert">
             <%= message %>
           </div>

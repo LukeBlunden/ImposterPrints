@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
       [id]
     );
     // concatenates these results together and keeps the first 10
-    reviews = reviewRowsID.concat(otherReviews).slice(0, 11);
+    reviews = reviewRowsID.concat(otherReviews).slice(0, 10);
     if (reviews.length === 0) {
       // Output log if there are no reviews
       console.log('No reviews found in database');
