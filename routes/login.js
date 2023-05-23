@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
       });
     } else {
       // Checks that the users credentials match an existing user
-      if (auth.authenticateUser(username, password)) {
+      if (await auth.authenticateUser(username, password)) {
         // Creates a new session user (makes a cookie)
         req.session.user = { username, password };
         // If there was a checkout flag, redirects to checkout

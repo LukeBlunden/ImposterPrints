@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
       'SELECT prodid, username, stars, date, text FROM reviews WHERE prodid != ? ORDER BY date DESC LIMIT 10',
       [id]
     );
-    // concatanates these results together and keeps the first 10
+    // concatenates these results together and keeps the first 10
     reviews = reviewRowsID.concat(otherReviews).slice(0, 11);
     if (reviews.length === 0) {
       // Output log if there are no reviews

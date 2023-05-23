@@ -15,20 +15,23 @@
       <h3 class="text-center mb-3"><%= genre %></h3>
       <div class="row">
         <!-- Loops through all movies with specific genre supplied by backend -->
-        <% for (let i = 1; i <= movies.size; i++) {%>
+        <% for (let i = 0; i < movies.length; i++) {%>
         <div class="col-md-4 col-6 col-xs-6">
           <!-- https://getbootstrap.com/docs/5.3/components/card/ -->
           <!-- Boostrap card element of movie posters -->
           <div class="card text-center border-0 mb-4">
             <!-- Links to item page of selected movie -->
-            <a href="/item?id=<%= i %>" class="text-decoration-none">
+            <a
+              href="/item?id=<%= movies[i].prodid %>"
+              class="text-decoration-none"
+            >
               <img
-                src="/assets/<%= movies.get(i).image1 %>"
+                src="/assets/<%= movies[i].image1 %>"
                 alt="poster image"
                 class="card-img-top"
               />
               <div class="card-body">
-                <h5 class="card-title"><%= movies.get(i).title %></h5>
+                <h5 class="card-title"><%= movies[i].title %></h5>
               </div>
             </a>
           </div>

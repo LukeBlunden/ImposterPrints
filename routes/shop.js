@@ -6,12 +6,16 @@ const getGenres = require('../getGenres.js');
 // Shop get
 router.get('/', async (req, res) => {
   try {
-    // Gets product and genre info from proddata and genres
-    const products = await query(
-      'SELECT * FROM proddata JOIN genres ON proddata.gid = genres.genreid'
+    // Gets product and genre info from proddata and genres for the 4 features products
+    const featuredMovies = await query(
+      'SELECT prodid, title, image1 FROM proddata JOIN genres ON proddata.gid = genres.genreid WHERE prodid < 5'
     );
-    // If no data is found logs and renders an error
-    if (products.length === 0) {
+    // Gets product and genre info from proddata and genres for the rest of the movies
+    const movies = await query(
+      'SELECT prodid, title, image1 FROM proddata JOIN genres ON proddata.gid = genres.genreid WHERE prodid > 4'
+    );
+    // If no movies are found logs and renders an error
+    if (movies.length === 0) {
       console.error('No products found');
       res.render('error', {
         status: 404,
@@ -19,16 +23,9 @@ router.get('/', async (req, res) => {
       });
     } else {
       console.log('Product options retrieved from database');
-      // If data is found, map the title and image1 to the id
-      let movies = new Map();
-      for (let i = 0; i < products.length; i++) {
-        movies.set(products[i].prodid, {
-          title: products[i].title,
-          image1: products[i].image1,
-        });
-      }
       // Render the shop with the movie data, username and genres
       res.render('shop', {
+        featuredMovies,
         movies,
         username: getUsername(req),
         genres: await getGenres(res),

@@ -159,6 +159,7 @@
                 min="1"
                 max="5"
                 class="mb-3 range"
+                required
               />
               <datalist class="mb-2">
                 <option value="1" label="1"></option>
@@ -246,22 +247,25 @@
       function addToCart(prodid) {
         // Gets poster size value from html select
         let size = parseInt(document.getElementById('size').value);
-        let order;
-        // Checks if there's an existing map in storage
-        if (localStorage.getItem(prodid) != null) {
-          order = new Map(JSON.parse(localStorage.getItem(prodid)));
-        } else {
-          order = new Map();
+        // Validates that dimension has been selected before adding to storage
+        if (size > 0) {
+          let order;
+          // Checks if there's an existing map in storage
+          if (localStorage.getItem(prodid) != null) {
+            order = new Map(JSON.parse(localStorage.getItem(prodid)));
+          } else {
+            order = new Map();
+          }
+          // Sets order into map
+          order.set(size, order.get(size) + 1 || 1);
+          // Sets order into storage
+          localStorage.setItem(
+            prodid,
+            JSON.stringify(Array.from(order.entries()))
+          );
+          // Once order is saved link to shop
+          window.location.href = 'shop';
         }
-        // Sets order into map
-        order.set(size, order.get(size) + 1 || 1);
-        // Sets order into storage
-        localStorage.setItem(
-          prodid,
-          JSON.stringify(Array.from(order.entries()))
-        );
-        // Once order is saved link to shop
-        window.location.href = 'shop';
       }
     </script>
   </body>

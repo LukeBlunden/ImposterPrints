@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 // Signup post
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
     // Gets the username and password submitted by signup form
     const { username, password } = req.body;
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
       });
     } else {
       // Checks if the users credentials match an existing user
-      if (auth.userExists(username)) {
+      if (await auth.userExists(username)) {
         // If so it rerenders the signup page with a warning that user already exists
         res.render('entry', {
           task: 'Sign up',
@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
         });
         // If credentials are ok it creates a new user and adds them to session and redirects to shop
       } else {
-        auth.createUser(username, password);
+        await auth.createUser(username, password);
         req.session.user = { username, password };
         res.redirect(303, '/shop');
       }
