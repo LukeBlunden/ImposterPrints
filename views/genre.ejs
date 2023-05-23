@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Includes the meta tags template -->
     <%- include('meta'); %>
     <title>Imposter Prints - Shop <%= genre %></title>
   </head>
   <body>
+    <!-- Boostrap container with rows and columns -->
     <div class="container">
+      <!-- Includes the navbar template -->
       <%- include('navbar'); %>
+      <!-- Shows selected genre -->
+      <h3 class="text-center mb-3"><%= genre %></h3>
       <div class="row">
-        <h1><%= genre %></h1>
-      </div>
-      <div class="row">
+        <!-- Loops through all movies with specific genre supplied by backend -->
         <% for (let i = 1; i <= movies.size; i++) {%>
-        <div class="col-md-4 col-6 col-xs-6 poster_panel_surround">
+        <div class="col-md-4 col-6 col-xs-6">
+          <!-- Boostrap card element of movie posters -->
           <div class="card text-center border-0 mb-4">
+            <!-- Links to item page of selected movie -->
             <a href="/item?id=<%= i %>" class="text-decoration-none">
               <img
                 src="/assets/<%= movies.get(i).image1 %>"
@@ -29,6 +34,7 @@
         <% } %>
       </div>
     </div>
+    <!-- Imports -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

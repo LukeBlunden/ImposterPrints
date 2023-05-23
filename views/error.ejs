@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Includes the meta tags template -->
     <%- include('meta'); %>
     <title>Imposter Prints - Error</title>
   </head>
   <body>
+    <!-- Boostrap container with rows and columns -->
     <div class="container">
+      <!-- Top row contains logo and store name (mini navbar) -->
       <div class="row justify-content-center mt-5">
+        <!-- Centered responsive column for layout -->
         <div class="col-xl-4 col-lg-6 col-md-8 col-10 text-center">
+          <!-- Logo/ store name links to shop -->
           <a href="/shop" class="shop-title text-decoration-none">
+            <!-- nav-logo class sets logo height -->
             <img
               class="nav-logo"
               src="assets/logo.png"
@@ -17,7 +23,13 @@
             />
             Im<span class="shop-title-emphasis">poster</span> Prints
           </a>
+        </div>
+      </div>
+      <!-- Bottom row contains error information -->
+      <div class="row justify-content-center mt-5">
+        <div class="col-xl-4 col-lg-6 col-md-8 col-10 text-center">
           <h3 class="my-3">We seem to have encountered an error 🤕</h3>
+          <!-- Error information generated from backend -->
           <p>Status: <%= status %></p>
           <p><%= err %></p>
           <a
@@ -30,7 +42,7 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap JS -->
+    <!-- Imports -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -47,10 +59,4 @@
       crossorigin="anonymous"
     ></script>
   </body>
-</html>
-
-<!DOCTYPE html>
-<html>
-  <head> </head>
-  <body></body>
 </html>

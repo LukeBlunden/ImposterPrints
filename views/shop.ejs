@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Includes the meta tags template -->
     <%- include('meta'); %>
     <title>Imposter Prints - Shop</title>
   </head>
   <body>
+    <!-- Boostrap container with rows and columns -->
     <div class="container">
+      <!-- Includes the navbar template -->
       <%- include('navbar'); %>
-      <h3>Featured products</h3>
+      <h3 class="text-center mb-3">Featured products</h3>
+      <!-- Row of featured items (poster collections) -->
       <div class="row">
+        <!-- Generates the 4 collections (product ID 1 - 4) -->
         <% for (let i = 1; i < 5; i++) {%>
-        <div class="col-md-3 col-6 poster_panel_surround">
+        <div class="col-md-3 col-6">
+          <!-- boostrap card element -->
           <div class="card text-center border-0 mb-4">
             <a href="/item?id=<%= i %>" class="text-decoration-none">
               <img
@@ -27,9 +33,12 @@
         <% } %>
       </div>
       <hr class="mt-0 mb-4" />
+      <!-- Row of the remaining movies -->
       <div class="row">
+        <!-- generates all other movies -->
         <% for (let i = 5; i <= movies.size; i++) {%>
-        <div class="col-md-4 col-6 col-xs-6 poster_panel_surround">
+        <div class="col-md-4 col-6 col-xs-6">
+          <!-- bootstrap card element -->
           <div class="card text-center border-0 mb-4">
             <a href="/item?id=<%= i %>" class="text-decoration-none">
               <img
@@ -46,6 +55,7 @@
         <% } %>
       </div>
     </div>
+    <!-- Imports -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

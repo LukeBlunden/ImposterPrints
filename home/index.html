@@ -21,37 +21,56 @@
     <title>Imposter Prints - Home Page</title>
   </head>
   <body>
+    <!-- Boostrap container with rows and columns -->
     <div class="container">
+      <!-- Row with store name and login and signup (mini navbar) -->
       <div class="row mt-5 mb-3">
         <div class="col-lg-8">
-          <h1>Im<span class="shop-title-emphasis">poster</span> Prints</h1>
+          <h1>Im<span class="emphasis">poster</span> Prints</h1>
         </div>
         <div class="col-lg-4 justify-content-between">
           <div class="row justify-content-end">
             <div class="col-lg-4">
-              <a href="/login"><h3 class="text-end">Login</h3></a>
+              <a href="/login" class="link"><h3 class="text-end">Login</h3></a>
             </div>
             <div class="col-lg-4">
-              <a href="/signup"><h3 class="text-end">Sign up</h3></a>
+              <a href="/signup" class="link"
+                ><h3 class="text-end">Sign up</h3></a
+              >
             </div>
           </div>
         </div>
       </div>
       <div class="row justify-content-between gx-5">
         <div class="col-lg-8">
-          <a href="shop">
+          <!-- bootstrap auto carousel wrapped in link - forwards to shop -->
+          <a href="/shop">
             <div
               id="itemCarousel"
               class="carousel slide carousel-fade pb-4"
               data-bs-ride="carousel"
             >
+              <!-- carousel-content class positions heading over carousel -->
               <div class="carousel-content">
+                <!-- landing-heading ID positions and styles heading -->
                 <h1 id="landing-heading">Shop</h1>
               </div>
+              <!-- homeImg tags are for javascript to randomly set active class for carousel -->
               <div class="carousel-inner">
                 <div
-                  class="carousel-item"
+                  class="carousel-item active"
                   id="homeImg1"
+                  data-bs-interval="4000"
+                >
+                  <img
+                    src="./assets/Shining.jpg"
+                    alt="Collection of alternative Pixar movie posters"
+                    class="d-block w-100"
+                  />
+                </div>
+                <div
+                  class="carousel-item"
+                  id="homeImg2"
                   data-bs-interval="4000"
                 >
                   <img
@@ -62,7 +81,7 @@
                 </div>
                 <div
                   class="carousel-item"
-                  id="homeImg2"
+                  id="homeImg3"
                   data-bs-interval="4000"
                 >
                   <img
@@ -73,23 +92,12 @@
                 </div>
                 <div
                   class="carousel-item"
-                  id="homeImg3"
+                  id="homeImg4"
                   data-bs-interval="4000"
                 >
                   <img
                     src="./assets/CollHughes.jpg"
                     alt="Collection of alternative John Hughes movie posters"
-                    class="d-block w-100"
-                  />
-                </div>
-                <div
-                  class="carousel-item"
-                  id="homeImg4"
-                  data-bs-interval="4000"
-                >
-                  <img
-                    src="./assets/CollPixar.jpg"
-                    alt="Collection of alternative Pixar movie posters"
                     class="d-block w-100"
                   />
                 </div>
@@ -121,7 +129,7 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap JS -->
+    <!-- Imports -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -137,22 +145,25 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+    <!-- Javascript -->
     <script>
       // Sets carousel to random starting image on page load
-      const rand = Math.random();
-      const img1 = document.getElementById('homeImg1');
-      const img2 = document.getElementById('homeImg2');
-      const img3 = document.getElementById('homeImg3');
-      const img4 = document.getElementById('homeImg4');
-      if (rand < 0.25) {
-        img1.classList.add('active');
-      } else if (rand < 0.5) {
-        img2.classList.add('active');
-      } else if (rand < 0.75) {
-        img3.classList.add('active');
-      } else {
-        img4.classList.add('active');
-      }
+      // Turned off in favor of always having The Shining (random carousel image in item pages)
+
+      // const rand = Math.random();
+      // const img1 = document.getElementById('homeImg1');
+      // const img2 = document.getElementById('homeImg2');
+      // const img3 = document.getElementById('homeImg3');
+      // const img4 = document.getElementById('homeImg4');
+      // if (rand < 0.25) {
+      //   img1.classList.add('active');
+      // } else if (rand < 0.5) {
+      //   img2.classList.add('active');
+      // } else if (rand < 0.75) {
+      //   img3.classList.add('active');
+      // } else {
+      //   img4.classList.add('active');
+      // }
     </script>
   </body>
 </html>

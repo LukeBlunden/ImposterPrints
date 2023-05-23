@@ -1,73 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Includes the meta tags template -->
     <%- include('meta'); %>
     <title>Imposter Prints - Checkout</title>
   </head>
   <body>
+    <!-- Boostrap container with rows and columns -->
     <div class="container">
+      <!-- Includes the navbar template -->
       <%- include('navbar'); %>
       <div class="row gx-5">
+        <!-- Left column contions the order summary, which is dynamically generated from local storage -->
         <div class="col-lg-8">
           <h3 class="ps-3">Order summary</h3>
-          <ul class="list-group-flush list-group" id="orderSummary"></ul>
+          <!-- orderSummary ID for targeting with javascript -->
+          <ul class="list-group-flush list-group" id="orderSummary">
+            <!-- Items are inserted into this boostrap list group from script -->
+          </ul>
           <p class="text-end mb-2 pe-3">Total</p>
-          <h3 id="total" class="text-end pe-3"></32>
+          <!-- total ID for targeting with javascript -->
+          <h3 id="total" class="text-end pe-3">
+            <!-- Total price is inserted into this h3 tag -->
+          </h3>
         </div>
+        <!-- Right column lets user input their details and place their order -->
         <div class="col-lg-4">
           <h3>Shipping details</h3>
-          <form method="POST" action="/checkout" onsubmit="localStorage.clear()">
-            <label for="name">Name:</label>
+          <!-- form using boostrap labels and inputs -->
+          <!-- Local storage is cleared after form is submitted -->
+          <!-- form class for styling inputs and labels -->
+          <form
+            method="POST"
+            action="/checkout"
+            onsubmit="localStorage.clear()"
+            class="form"
+          >
+            <label for="name" class="form-label">Name</label>
             <input
               type="text"
               name="name"
               id="name"
+              class="form-control"
               value="<%= username %>"
               autocomplete="name"
               required
             />
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required />
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="form-control"
+              required
+            />
 
-            <label for="address">Address:</label>
+            <label for="address" class="form-label">Address:</label>
             <textarea
               name="address"
               id="address"
+              class="form-control"
               rows="4"
               required
               autocomplete="street-address"
             ></textarea>
 
-            <label for="city">City</label>
+            <label for="city" class="form-label">City</label>
             <input
               type="text"
               name="city"
               id="city"
+              class="form-control"
               autocomplete="address-level2"
               required
             />
 
-            <label for="county">County</label>
+            <label for="county" class="form-label">County</label>
             <input
               type="text"
               name="county"
               id="county"
+              class="form-control"
               autocomplete="address-level1"
               required
             />
 
-            <label for="country">Country</label>
+            <label for="country" class="form-label">Country</label>
             <input
               type="text"
               name="country"
               id="country"
+              class="form-control"
               autocomplete="country"
               required
             />
 
-            <label for="payment">Payment Method:</label>
-            <select name="payment" id="payment">
+            <label for="payment" class="form-label">Payment Method:</label>
+            <select name="payment" id="payment" class="form-select mb-3">
               <option value="credit-card">Credit Card</option>
               <option value="paypal">PayPal</option>
               <option value="stripe">Stripe</option>
@@ -90,6 +120,7 @@
         </div>
       </div>
     </div>
+    <!-- Imports -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -105,23 +136,32 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
-
+    <!-- Javascript -->
     <script type="text/javascript">
+      // Parses data supplied by backend through ejs
       let sizes = JSON.parse('<%- JSON.stringify(sizes) %>');
       let products = JSON.parse('<%- JSON.stringify(products) %>');
-      console.log(products);
-      console.log(products.find((product) => product.prodid === 1).image1);
 
+      // Tracks product total
       let total = 0;
+      // Loops through all items within local storage
       for (let i = 0; i < localStorage.length; i++) {
+        // Gets product ID of current item in loop
         let prodid = parseInt(localStorage.key(i));
+        // Creates new map from stringified data in local storage
         let order = new Map(JSON.parse(localStorage.getItem(prodid)));
 
+        // Loops through each item within the order
         order.forEach((quantity, size) => {
-          let itemTotal = prodid > 4 ? sizes[size - 1].price * quantity : (sizes[size - 1].price * quantity) * 2.5
+          // Gets the items total cost. If the ID is between 1-4 it's a collection so the cost is multiplied
+          let itemTotal =
+            prodid > 4
+              ? sizes[size - 1].price * quantity
+              : sizes[size - 1].price * quantity * 2.5;
+          // Insert the boostrap list items into the html
           document.getElementById('orderSummary').innerHTML +=
-            '<li class="list-group-item"><div class="row py-2"><div class="col-3"><img src="./assets/' + 
-            products.find((product) => product.prodid === prodid).image1 + 
+            '<li class="list-group-item"><div class="row py-2"><div class="col-3"><img src="./assets/' +
+            products.find((product) => product.prodid === prodid).image1 +
             '" alt="movie thumbnail" class="img-thumbnail border-0"></div><div class="col-6"><h5>' +
             products.find((product) => product.prodid === prodid).title +
             '</h5><p>Dimensions: ' +
@@ -133,11 +173,12 @@
             '</h5><p>€' +
             sizes[size - 1].price +
             ' each</p></div></div></li>';
+          // Adds the items cost to the running total
           total += itemTotal;
         });
       }
-      document.getElementById('total').innerHTML =
-        '€' + total.toFixed(2);
+      // Inserts total cost into html
+      document.getElementById('total').innerHTML = '€' + total.toFixed(2);
     </script>
   </body>
 </html>

@@ -1,7 +1,9 @@
+/* Default text font family */
 body {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Default font family for headings and items in the navbar */
 h1,
 h2,
 h3,
@@ -9,40 +11,48 @@ h4,
 h5,
 h6,
 .navbar,
-.shop-title {
+.shop-title,
+.form-label {
   font-family: 'Bebas Neue', sans-serif;
 }
 
+/* Changes all links to colour black */
 a {
+  color: black;
+}
+
+/* Changes colour and gives underline only on hover, used on some links*/
+.link {
   text-decoration: none;
   color: #5d8cad;
 }
-
-a:hover {
+.link:hover {
   text-decoration: underline;
 }
 
+/* NAVBAR */
+/* Increases the font size of all nav items within the nav bar */
 .nav-item {
   font-size: 150%;
 }
 
-.navbar a {
-  text-decoration: none;
-}
-
+/* Sets size for logo in navbar */
 .nav-logo {
   height: 60px;
 }
 
+/* Increases font size of the store name */
 .shop-title {
   font-size: 250%;
-  color: black;
 }
 
-.shop-title-emphasis {
+/* Sets emphasis for POSTER section of store name */
+.emphasis {
   color: #be320c;
 }
 
+/* INDEX PAGE */
+/* Positions the SHOP heading on the index page over the carousel */
 .carousel-content {
   position: absolute;
   bottom: 50%;
@@ -52,74 +62,84 @@ a:hover {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
+/* Positions and changes the colour and size of the SHOP heading */
 #landing-heading {
   font-size: 10em;
   opacity: 0.75;
   margin-left: -100%;
   margin-bottom: -30%;
-  color: black;
 }
 
-.poster_panel_surround {
-  padding: 10px;
-}
-
+/* SHOP PAGE */
+/* Box shadow for bootstrap poster cards on hover */
 .card:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.card h5 {
-  color: black;
-}
-
-.poster_panel img {
-  max-width: 100%;
-}
-
-/* Item */
-#carousel-contain.col-7 {
-  padding-right: 0px;
-}
-
-#carousel-contain.col-5 {
-  padding-left: 0px;
-}
-
+/* ITEM PAGES */
+/* Background colour on reviews of current item */
 .reviewed {
-  background-color: #e0ebec;
+  background-color: #f3f7f7;
 }
 
+/* Changes colour and size of review stars */
 .review-stars {
   color: #be320c;
   font-size: 1.4em;
 }
 
+/* Displays annotation for star rating along the bottom of the range bar */
 datalist {
   display: flex;
   justify-content: space-between;
 }
 
-/* Checkout */
-label {
-  display: block;
-  margin-bottom: 5px;
+/* Range input styling */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
 }
-input,
+
+/* Range styling - only texted in chrome not 100% sure of implementation */
+/* Taken from - https://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html */
+input[type='range']::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #5d8cad;
+  margin-top: -4px;
+}
+
+input[type='range']:focus {
+  outline: none;
+}
+
+input[type='range']:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+}
+
+/* CHECKOUT PAGE */
+/* Formats inputs of the shipping details form */
+.form input,
 select,
 textarea {
   display: block;
   margin-bottom: 10px;
   width: 100%;
 }
-button[type='submit'] {
-  margin-top: 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-button[type='submit']:hover {
-  background-color: #0062cc;
+
+/* Resizes form labels and moves them closer to input */
+.form .form-label {
+  margin-bottom: 0;
+  font-size: 1.2em;
 }

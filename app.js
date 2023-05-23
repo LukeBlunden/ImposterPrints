@@ -1,23 +1,22 @@
 const express = require('express');
 const auth = require('./auth.js');
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
 
 const app = express();
 
-app.use(express.static('pages'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+// Sets session secret key
 app.use(
   session({ secret: 'a_secret_key', resave: true, saveUninitialized: true })
 );
 
-// Set view engine
+// Sets view engine
 app.set('view engine', 'ejs');
-// Static files
+// Sets static files location to home
 app.use(express.static('home'));
 
+// Sets different routes
 const checkout = require('./routes/checkout.js');
 app.use('/checkout', checkout);
 const signup = require('./routes/signup.js');
@@ -33,9 +32,10 @@ app.use('/shop', shop);
 const logout = require('./routes/logout.js');
 app.use('/logout', logout);
 
-// Default user
+// Creates default user
 auth.createUser('user', 'pass');
 
+// Listen on port 3000
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });

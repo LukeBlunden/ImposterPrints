@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Includes the meta tags template -->
     <%- include('meta'); %>
     <title>Imposter Prints - <%= title %> Movie Poster</title>
   </head>
   <body>
+    <!-- Boostrap container with rows and columns -->
     <div class="container" id="carousel-contain">
+      <!-- Includes the navbar template -->
       <%- include('navbar'); %>
-      <!-- Row with carousel and movie description -->
+      <!-- Row with carousel, movie description and reviews -->
       <div class="row justify-content-between gx-5 d-lg-block">
+        <!-- Columns are floated so reviews fill empty space beneath carousel -->
         <div class="col-lg-8 float-start">
-          <!-- Carousel -->
+          <!-- Boostrap carousel -->
           <div id="itemCarousel" class="carousel slide pb-4">
             <div class="carousel-inner">
               <div class="carousel-item" id="img1">
@@ -35,6 +39,7 @@
                 />
               </div>
             </div>
+            <!-- Bootstrap carousel controls -->
             <button
               class="carousel-control-prev"
               type="button"
@@ -61,112 +66,130 @@
             </button>
           </div>
         </div>
-        <!-- Item info -->
         <div class="col-lg-4 float-end">
-          <h1 id="product"><%= title %></h1>
-          <h3 class="mb-4">A <%= director %> Film</h3>
-          <h5>Dimensions</h5>
-          <select name="size" id="size" class="form-select">
-            <option disabled selected>Select dimensions</option>
-            <% for (let i = 0; i < sizes.length; i++) {%>
-            <option value="<%= sizes[i].sizeid %>">
-              <%= sizes[i].dimx %> x <%= sizes[i].dimy %> cm (€<%= prodid > 4 ?
-              sizes[i].price : (sizes[i].price * 2.5).toFixed(2)%>)
-            </option>
-            <% } %>
-          </select>
-
-          <button
-            onclick="addToCart('<%- prodid %>')"
-            type="button"
-            class="btn btn-outline-dark col-12 mb-4"
-          >
-            Add to cart
-          </button>
-          <div class="row justify-content-between mb-2">
-            <h5 class="col m-0">Genre</h5>
-            <div class="col text-end">
-              <a
-                class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                href="/genre?gid=<%= gid %>"
-                ><h5 class="m-0"><%= genre %></h5></a
-              >
+          <!-- Movie poster details section -->
+          <section>
+            <h1><%= title %></h1>
+            <h3 class="mb-4">A <%= director %> Film</h3>
+            <h5>Dimensions</h5>
+            <!-- Boostrap select of different poster sizes and their prices -->
+            <!-- size ID for javascript to save value to local storage -->
+            <select name="size" id="size" class="form-select">
+              <option disabled selected>Select dimensions</option>
+              <!-- Options are generated from poster sizes supplied by backend -->
+              <% for (let i = 0; i < sizes.length; i++) {%>
+              <option value="<%= sizes[i].sizeid %>">
+                <%= sizes[i].dimx %> x <%= sizes[i].dimy %> cm (€<%= prodid > 4
+                ? sizes[i].price : (sizes[i].price * 2.5).toFixed(2)%>)
+              </option>
+              <% } %>
+            </select>
+            <!-- bootstrap button adds selected item to cart and passes the item ID -->
+            <button
+              onclick="addToCart('<%- prodid %>')"
+              type="button"
+              class="btn btn-outline-dark col-12 mb-4"
+            >
+              Add to cart
+            </button>
+            <div class="row justify-content-between mb-2">
+              <h5 class="col m-0">Genre</h5>
+              <!-- dynamically generates the genre and a link to the filtered shop -->
+              <div class="col text-end">
+                <a class="link" href="/genre?gid=<%= gid %>"
+                  ><h5 class="m-0"><%= genre %></h5></a
+                >
+              </div>
             </div>
-          </div>
-          <h5>Description</h5>
-          <p>
-            Alternative movie posters created by the movie fan for the movie
-            fans. A tribute piece for those who brought my favorite films to
-            life.
-          </p>
-          <p>
-            The chic minimalist design will complement any wall in your house or
-            office, adding a distinctively modern sensibility. Printed on fine
-            archival paper with high-quality ink, it will last for years to
-            come.
-          </p>
-          <p>
-            This item is for PRINT only. Frame shown in the picture is not part
-            of the item.
-          </p>
-          <p>
-            Because the item is made to order, all sales are final. I do not
-            accept return items. But if you receive a damaged item or a wrong
-            print, please send me a message with the photos and I'll gladly send
-            you another one.
-          </p>
-          <h3 class="mt-4">Review this item</h3>
-          <form action="/item?id=<%= prodid %>" method="POST" id="review-form">
-            <label for="review-name"><h5>Name</h5></label>
-            <input
-              type="text"
-              name="name"
-              id="review-name"
-              value="<%= username %>"
-              autocomplete="name"
-              class="mb-3"
-              required
-            />
+            <!-- Basic text common to all items -->
+            <h5>Description</h5>
+            <p>
+              Alternative movie posters created by the movie fan for the movie
+              fans. A tribute piece for those who brought my favorite films to
+              life.
+            </p>
+            <p>
+              The chic minimalist design will complement any wall in your house
+              or office, adding a distinctively modern sensibility. Printed on
+              fine archival paper with high-quality ink, it will last for years
+              to come.
+            </p>
+            <p>
+              This item is for PRINT only. Frame shown in the picture is not
+              part of the item.
+            </p>
+            <p>
+              Because the item is made to order, all sales are final. I do not
+              accept return items. But if you receive a damaged item or a wrong
+              print, please send me a message with the photos and I'll gladly
+              send you another one.
+            </p>
+          </section>
+          <!-- Add review section -->
+          <section>
+            <h3 class="mt-4">Review this item</h3>
+            <!-- form using boostrap labels and inputs -->
+            <!-- form class for styling inputs and labels -->
+            <form
+              action="/item/review?id=<%= prodid %>"
+              method="POST"
+              class="form"
+            >
+              <label for="review-name" class="form-label">Name</label>
+              <input
+                type="text"
+                name="name"
+                id="review-name"
+                value="<%= username %>"
+                autocomplete="name"
+                class="mb-3"
+                required
+              />
 
-            <label for="review-rating"><h5>Stars</h5></label>
-            <input
-              type="range"
-              name="reviewRating"
-              id="review-rating"
-              list="tickmarks"
-              min="1"
-              max="5"
-              class="mb-1"
-            />
-            <datalist id="tickmarks" class="mb-2">
-              <option value="1" label="1"></option>
-              <option value="2" label="2"></option>
-              <option value="3" label="3"></option>
-              <option value="4" label="4"></option>
-              <option value="5" label="5"></option>
-            </datalist>
+              <label for="review-rating" class="form-label">Stars</label>
+              <input
+                type="range"
+                name="reviewRating"
+                id="review-rating"
+                min="1"
+                max="5"
+                class="mb-3 range"
+              />
+              <datalist class="mb-2">
+                <option value="1" label="1"></option>
+                <option value="2" label="2"></option>
+                <option value="3" label="3"></option>
+                <option value="4" label="4"></option>
+                <option value="5" label="5"></option>
+              </datalist>
 
-            <label for="review-text"><h5>Review</h5></label>
-            <textarea name="text" id="review-text" rows="4"></textarea>
-
-            <input
-              type="submit"
-              value="Submit review"
-              id="btnsubmit"
-              class="btn btn-outline-dark col-12 my-2"
-            />
-            <!-- <div id="review-success" role="alert"></div> -->
-          </form>
+              <label for="review-text" class="form-label">Review</label>
+              <textarea name="text" id="review-text" rows="4"></textarea>
+              <!-- bootstrap button for submit -->
+              <input
+                type="submit"
+                value="Submit review"
+                id="btnsubmit"
+                class="btn btn-outline-dark col-12 my-2"
+              />
+            </form>
+          </section>
         </div>
+        <!-- Reviews section -->
         <div class="col-lg-8 float-start">
           <h3 class="ms-2">Reviews</h3>
+          <!-- bootstrap list group -->
           <ul class="list-group list-group-flush">
+            <!-- Generates list group items for each review supplied by backend -->
             <% for (let i = 0; i < reviews.length; i++) {%>
+            <!-- If the reviews product ID matches the current product ID it gets reviewed class -->
+            <!-- reviewed class adds light blue background -->
             <li
               class="list-group-item d-flex <%= reviews[i].prodid === prodid ? 'reviewed' : '' %>"
             >
               <div class="me-auto">
                 <h5 class="me-2 d-inline-block"><%= reviews[i].username %></h5>
+                <!-- text dynamically generated depending on if review is for this item -->
                 <small>
                   <%= reviews[i].prodid === prodid ? "reviewed this item" :
                   "reviewed another item" %>
@@ -177,6 +200,8 @@
                   ><%= reviews[i].date.toLocaleDateString("en-GB") %></small
                 >
               </div>
+              <!-- review-stars class adds red colour and increases font size -->
+              <!-- Stars are generated based on review star number -->
               <span class="review-stars">
                 <%= "★".repeat(reviews[i].stars) %><%= "☆".repeat(5 -
                 reviews[i].stars) %>
@@ -187,7 +212,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Imports -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -203,7 +228,7 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
-
+    <!-- Javascript -->
     <script type="text/javascript">
       // Randomly selects image 1 or 2 as the starting carousel image
       const rand = Math.random() < 0.5;
@@ -211,31 +236,25 @@
       const img2 = document.getElementById('img2');
       rand ? img1.classList.add('active') : img2.classList.add('active');
 
+      // Triggered when order is placed - adds item into local storage
       function addToCart(prodid) {
-        // let product = document.getElementById('product').innerHTML;
+        // Gets poster size value from html select
+        let size = parseInt(document.getElementById('size').value);
         let order = new Map();
-        if (localStorage.getItem(product) != null) {
-          order = new Map(JSON.parse(localStorage.getItem(product)));
+        // Checks if there's an existing map in storage
+        if (localStorage.getItem(size) != null) {
+          order = new Map(JSON.parse(localStorage.getItem(size)));
         }
-        let item = parseInt(document.getElementById('size').value);
-        order.set(item, order.get(item) + 1 || 1);
-
+        // Sets order into map
+        order.set(size, order.get(size) + 1 || 1);
+        // Sets order into storage
         localStorage.setItem(
           prodid,
           JSON.stringify(Array.from(order.entries()))
         );
-
+        // Once order is saved link to checkout
         window.location.href = 'checkout';
       }
-
-      // function submitForm() {
-      //   let form = document.getElementById('review-form');
-      //   form.submit();
-      //   form.reset();
-      //   let reviewSuccess = document.getElementById('review-success');
-      //   reviewSuccess.innerHTML =
-      //     '<div class="alert alert-success" >Review submitted, thanks!</div>';
-      // }
     </script>
   </body>
 </html>

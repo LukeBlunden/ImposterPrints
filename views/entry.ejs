@@ -1,60 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Includes the meta tags template -->
     <%- include('meta'); %>
     <title>Imposter Prints - <%= task %></title>
   </head>
   <body>
+    <!-- Dynamically used for login or signup pages -->
+    <!-- Boostrap container with rows and columns -->
     <div class="container">
+      <!-- Top row contains logo and store name (mini navbar) -->
       <div class="row justify-content-center mt-5">
+        <!-- Centered responsive column for layout -->
         <div class="col-xl-4 col-lg-6 col-md-8 col-10 text-center">
+          <!-- Logo/ store name links to shop -->
           <a href="/shop" class="shop-title text-decoration-none">
-            <img
-              class="nav-logo"
-              src="assets/logo.png"
-              alt="logo"
-              class="me-4"
-            />
-            Im<span class="shop-title-emphasis">poster</span> Prints
+            <!-- nav-logo class sets logo height -->
+            <img class="nav-logo me-2" src="assets/squareLogo.png" alt="logo" />
+            <!-- emphasis class adds red colouring -->
+            Im<span class="emphasis">poster</span> Prints
           </a>
         </div>
       </div>
+      <!-- Bottom row contains login/ signup form -->
       <div class="row justify-content-center mt-4">
         <div class="col-xl-4 col-lg-6 col-md-8 col-10">
           <h1 class="text-center"><%= task %></h1>
+          <!-- form using boostrap labels and inputs -->
+          <!-- form class for styling inputs and labels -->
+          <!-- action - if forwarded to login from checkout, login will forward back to checkout -->
           <form
             method="POST"
+            class="form"
             action="/<%= route %><% if (locals.checkoutFwd) { %>?checkout=<%= checkoutFwd %>
             <% } %>"
           >
-            <div class="form-group">
-              <label for="username"><h5>Username</h5></label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                placeholder="Enter your username"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="password" class="mt-4"><h5>Password</h5></label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              required
+            />
+            <label for="password" class="form-label mt-2">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
             <input
               type="submit"
               class="btn btn-outline-dark col-12 my-4"
               value="<%= task %>"
             />
           </form>
+          <!-- Displays an error message from backend if one is sent -->
           <% if (locals.message) { %>
           <div class="alert alert-warning text-center" role="alert">
             <%= message %>
@@ -63,7 +68,7 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap JS -->
+    <!-- Imports -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

@@ -1,9 +1,15 @@
 <div class="border-bottom mb-4">
+  <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+  <!-- bootstrap navbar -->
   <nav class="navbar navbar-expand-lg">
+    <!-- Logo/ store name links to shop -->
     <a href="/shop" class="shop-title navbar-brand">
-      <img class="nav-logo" src="assets/logo.png" alt="logo" class="me-4" />
-      Im<span class="shop-title-emphasis">poster</span> Prints
+      <!-- nav-logo class sets height for logo -->
+      <img class="nav-logo me-2" src="assets/squareLogo.png" alt="logo" />
+      <!-- emphasis class sets colour to red -->
+      Im<span class="emphasis">poster</span> Prints
     </a>
+    <!-- Toggles the navbar collapsed menu at smaller screen sizes -->
     <button
       class="navbar-toggler"
       type="button"
@@ -15,11 +21,14 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- Section of the navbar that collapses at smaller screen sizes -->
+    <!-- navbarNavDropdown ID for targetting by toggle -->
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" href="/shop" id="nav_home">Shop</a>
         </li>
+        <!-- genre dropdown -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -30,6 +39,7 @@
           >
             Shop by genre
           </a>
+          <!-- Generates dropdown items in dropdown based on genres supplied by back end -->
           <ul class="dropdown-menu">
             <% for (let i = 0; i < genres.length; i++) { %>
             <li>
@@ -43,6 +53,7 @@
           </ul>
         </li>
       </ul>
+      <!-- user dropdown -->
       <div class="nav-item dropdown me-5">
         <a
           class="nav-link dropdown-toggle"
@@ -53,6 +64,7 @@
         >
           <%= username %>
         </a>
+        <!-- options are dynamically set based on whether the username is logged in or not -->
         <ul class="dropdown-menu">
           <% if (username === 'Guest') {%>
           <li><a class="dropdown-item" href="/login">Login</a></li>
