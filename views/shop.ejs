@@ -6,6 +6,7 @@
     <title>Imposter Prints - Shop</title>
   </head>
   <body>
+    <!-- https://getbootstrap.com/docs/5.3/layout/containers/ -->
     <!-- Boostrap container with rows and columns -->
     <div class="container">
       <!-- Includes the navbar template -->
@@ -16,6 +17,7 @@
         <!-- Generates the 4 collections (product ID 1 - 4) -->
         <% for (let i = 1; i < 5; i++) {%>
         <div class="col-md-3 col-6">
+          <!-- https://getbootstrap.com/docs/5.3/components/card/ -->
           <!-- boostrap card element -->
           <div class="card text-center border-0 mb-4">
             <a href="/item?id=<%= i %>" class="text-decoration-none">
@@ -38,6 +40,7 @@
         <!-- generates all other movies -->
         <% for (let i = 5; i <= movies.size; i++) {%>
         <div class="col-md-4 col-6 col-xs-6">
+          <!-- https://getbootstrap.com/docs/5.3/components/card/ -->
           <!-- bootstrap card element -->
           <div class="card text-center border-0 mb-4">
             <a href="/item?id=<%= i %>" class="text-decoration-none">

@@ -6,6 +6,7 @@
     <title>Imposter Prints - Shop <%= genre %></title>
   </head>
   <body>
+    <!-- https://getbootstrap.com/docs/5.3/layout/containers/ -->
     <!-- Boostrap container with rows and columns -->
     <div class="container">
       <!-- Includes the navbar template -->
@@ -16,6 +17,7 @@
         <!-- Loops through all movies with specific genre supplied by backend -->
         <% for (let i = 1; i <= movies.size; i++) {%>
         <div class="col-md-4 col-6 col-xs-6">
+          <!-- https://getbootstrap.com/docs/5.3/components/card/ -->
           <!-- Boostrap card element of movie posters -->
           <div class="card text-center border-0 mb-4">
             <!-- Links to item page of selected movie -->

@@ -6,6 +6,7 @@
     <title>Imposter Prints - Error</title>
   </head>
   <body>
+    <!-- https://getbootstrap.com/docs/5.3/layout/containers/ -->
     <!-- Boostrap container with rows and columns -->
     <div class="container">
       <!-- Top row contains logo and store name (mini navbar) -->
@@ -32,6 +33,8 @@
           <!-- Error information generated from backend -->
           <p>Status: <%= status %></p>
           <p><%= err %></p>
+          <!-- https://getbootstrap.com/docs/5.3/components/buttons/ -->
+          <!-- Bootstrap button -->
           <a
             href="/shop"
             class="btn btn-outline-dark col-12 my-2 text-decoration-none"

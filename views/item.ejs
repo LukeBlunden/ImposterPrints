@@ -6,6 +6,7 @@
     <title>Imposter Prints - <%= title %> Movie Poster</title>
   </head>
   <body>
+    <!-- https://getbootstrap.com/docs/5.3/layout/containers/ -->
     <!-- Boostrap container with rows and columns -->
     <div class="container" id="carousel-contain">
       <!-- Includes the navbar template -->
@@ -14,6 +15,7 @@
       <div class="row justify-content-between gx-5 d-lg-block">
         <!-- Columns are floated so reviews fill empty space beneath carousel -->
         <div class="col-lg-8 float-start">
+          <!-- https://getbootstrap.com/docs/5.3/components/carousel/ -->
           <!-- Boostrap carousel -->
           <div id="itemCarousel" class="carousel slide pb-4">
             <div class="carousel-inner">
@@ -72,6 +74,7 @@
             <h1><%= title %></h1>
             <h3 class="mb-4">A <%= director %> Film</h3>
             <h5>Dimensions</h5>
+            <!-- https://getbootstrap.com/docs/5.3/forms/select/ -->
             <!-- Boostrap select of different poster sizes and their prices -->
             <!-- size ID for javascript to save value to local storage -->
             <select name="size" id="size" class="form-select">
@@ -84,6 +87,7 @@
               </option>
               <% } %>
             </select>
+            <!-- https://getbootstrap.com/docs/5.3/components/buttons/ -->
             <!-- bootstrap button adds selected item to cart and passes the item ID -->
             <button
               onclick="addToCart('<%- prodid %>')"
@@ -128,6 +132,7 @@
           <!-- Add review section -->
           <section>
             <h3 class="mt-4">Review this item</h3>
+            <!-- https://getbootstrap.com/docs/5.3/forms/overview/ -->
             <!-- form using boostrap labels and inputs -->
             <!-- form class for styling inputs and labels -->
             <form
@@ -178,6 +183,7 @@
         <!-- Reviews section -->
         <div class="col-lg-8 float-start">
           <h3 class="ms-2">Reviews</h3>
+          <!-- https://getbootstrap.com/docs/5.3/components/list-group/ -->
           <!-- bootstrap list group -->
           <ul class="list-group list-group-flush">
             <!-- Generates list group items for each review supplied by backend -->
@@ -254,7 +260,7 @@
           prodid,
           JSON.stringify(Array.from(order.entries()))
         );
-        // Once order is saved link to checkout
+        // Once order is saved link to shop
         window.location.href = 'shop';
       }
     </script>

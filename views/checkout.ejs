@@ -6,6 +6,7 @@
     <title>Imposter Prints - Checkout</title>
   </head>
   <body>
+    <!-- https://getbootstrap.com/docs/5.3/layout/containers/ -->
     <!-- Boostrap container with rows and columns -->
     <div class="container">
       <!-- Includes the navbar template -->
@@ -14,6 +15,7 @@
         <!-- Left column contions the order summary, which is dynamically generated from local storage -->
         <div class="col-lg-8">
           <h3 class="ps-3">Order summary</h3>
+          <!-- https://getbootstrap.com/docs/5.3/components/list-group/ -->
           <!-- orderSummary ID for targeting with javascript -->
           <ul class="list-group-flush list-group" id="orderSummary">
             <!-- Items are inserted into this boostrap list group from script -->
@@ -27,6 +29,7 @@
         <!-- Right column lets user input their details and place their order -->
         <div class="col-lg-4">
           <h3>Shipping details</h3>
+          <!-- https://getbootstrap.com/docs/5.3/forms/overview/ -->
           <!-- form using boostrap labels and inputs -->
           <!-- Local storage is cleared after form is submitted -->
           <!-- form class for styling inputs and labels -->
