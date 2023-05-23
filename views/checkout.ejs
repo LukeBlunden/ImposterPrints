@@ -103,6 +103,9 @@
               <option value="stripe">Stripe</option>
             </select>
 
+            <!-- orderInput ID for targetting by JS -->
+            <input type="hidden" name="orderInput" id="orderInput" />
+
             <input
               type="submit"
               class="btn btn-outline-dark col-12 my-2"
@@ -138,10 +141,15 @@
     ></script>
     <!-- Javascript -->
     <script type="text/javascript">
+      // saves order data from local storage to a hidden input value for backend
+      const orderInput = document.getElementById('orderInput');
+      orderInput.value = JSON.stringify(localStorage);
+
       // Parses data supplied by backend through ejs
       let sizes = JSON.parse('<%- JSON.stringify(sizes) %>');
       let products = JSON.parse('<%- JSON.stringify(products) %>');
 
+      console.log(localStorage);
       // Tracks product total
       let total = 0;
       // Loops through all items within local storage
@@ -162,9 +170,12 @@
           document.getElementById('orderSummary').innerHTML +=
             '<li class="list-group-item"><div class="row py-2"><div class="col-3"><img src="./assets/' +
             products.find((product) => product.prodid === prodid).image1 +
-            '" alt="movie thumbnail" class="img-thumbnail border-0"></div><div class="col-6"><h5>' +
+            '" alt="movie thumbnail" class="img-thumbnail border-0"></div><div class="col-6"><h3>' +
             products.find((product) => product.prodid === prodid).title +
-            '</h5><p>Dimensions: ' +
+            '</h3><h5>Quantity: ' +
+            quantity +
+            '</h5>' +
+            '<p>Dimensions: ' +
             sizes[size - 1].dimx +
             'x' +
             sizes[size - 1].dimy +

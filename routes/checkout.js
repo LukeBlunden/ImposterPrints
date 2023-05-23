@@ -36,8 +36,34 @@ router.post('/', async (req, res) => {
       'INSERT INTO orders (name, email, address, city, county, country, payment) VALUES (?,?,?,?,?,?,?)',
       [name, email, address, city, county, country, payment]
     );
+    // If customer info insert was succesful add order information
     if (result.affectedRows > 0) {
-      console.log('Insert successful');
+      // Get the order ID from the customer info insert
+      orderId = result.insertId;
+      // Get todays date
+      const date = new Date();
+      // Parses the order info from local storage sent by a hidden checkout input
+      const orderInput = JSON.parse(req.body.orderInput);
+      // Gets the keys of the order - the product ID's
+      const keys = Object.keys(orderInput);
+      // Loops through each product
+      keys.forEach((key, index) => {
+        // parse the product ID to an int
+        let productId = parseInt(key);
+        // Create map of size and quantity data for each product
+        let map = new Map(JSON.parse(orderInput[key]));
+        // For each size of a product ordered
+        map.forEach(async (v, k) => {
+          // Insert the item into the orderitems table of the database along with foreigh keys
+          const insert = await query(
+            'INSERT INTO orderitems (orderid, productid, sizeid, quantity, date) VALUES (?,?,?,?,?)',
+            [orderId, productId, k, v, date]
+          );
+          if (insert.affectedRows > 0) {
+            console.log('Item successfully insert');
+          }
+        });
+      });
     }
     // Once successful redirects customer back to shop
     res.redirect('../shop');

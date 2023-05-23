@@ -240,10 +240,12 @@
       function addToCart(prodid) {
         // Gets poster size value from html select
         let size = parseInt(document.getElementById('size').value);
-        let order = new Map();
+        let order;
         // Checks if there's an existing map in storage
-        if (localStorage.getItem(size) != null) {
-          order = new Map(JSON.parse(localStorage.getItem(size)));
+        if (localStorage.getItem(prodid) != null) {
+          order = new Map(JSON.parse(localStorage.getItem(prodid)));
+        } else {
+          order = new Map();
         }
         // Sets order into map
         order.set(size, order.get(size) + 1 || 1);
@@ -253,7 +255,7 @@
           JSON.stringify(Array.from(order.entries()))
         );
         // Once order is saved link to checkout
-        window.location.href = 'checkout';
+        window.location.href = 'shop';
       }
     </script>
   </body>

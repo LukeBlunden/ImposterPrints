@@ -32,9 +32,6 @@ app.use('/shop', shop);
 const logout = require('./routes/logout.js');
 app.use('/logout', logout);
 
-// Creates default user
-auth.createUser('user', 'pass');
-
 // Listen on port 3000
 app.listen(3000, () => {
   console.log('Server started on port 3000');
